@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventario de Parqueaderos | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="parqueaderos-main">
+    <h2 class="titulo-admin">Inventario de Parqueaderos</h2>
+    <p class="subtitulo-admin">
+      Administra el listado completo de parqueaderos del conjunto residencial.
+    </p>
+
+    <!-- Tarjetas resumen -->
+    <div class="resumen-parqueaderos">
+      <button class="resumen total">Total <span>6</span></button>
+      <button class="resumen disponibles">Disponibles <span>9</span></button>
+      <button class="resumen reservados">Reservados <span>3</span></button>
+      <button class="resumen ocupados">Ocupados <span>1</span></button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros-parqueaderos">
+      <select id="filtro-tipo">
+        <option value="">Tipo</option>
+        <option value="residente">Residente</option>
+        <option value="visitante">Visitante</option>
+        <option value="arrendado">Arrendado</option>
+      </select>
+
+      <select id="filtro-estado">
+        <option value="">Estado</option>
+        <option value="disponible">Disponible</option>
+        <option value="ocupado">Ocupado</option>
+        <option value="reservado">Reservado</option>
+      </select>
+
+      <button type="submit" class="btn-agregar" onclick="window.location.href='/administracion/parqueaderos/agregar'">
+        Agregar Parqueadero
+    </button>
+      
+    </div>
+
+    <!-- Tabla -->
+    <section class="tabla-container">
+      <table class="tabla-reservas">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Asignado a</th>
+            <th>Costo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P-102</td>
+            <td>Residente</td>
+            <td><span class="estado disponible">🟢 Disponible</span></td>
+            <td>Juan Perez</td>
+            <td>$0</td>
+            <td>
+              <button class="btn-accion editar" title="Editar">✎</button>
+              <button class="btn-accion cancelar" title="Eliminar">✖</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>P-104</td>
+            <td>Visitante</td>
+            <td><span class="estado ocupado">🔴 Ocupado</span></td>
+            <td>-</td>
+            <td>$0</td>
+            <td>
+              <button class="btn-accion editar" title="Editar">✎</button>
+              <button class="btn-accion cancelar" title="Eliminar">✖</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>P-110</td>
+            <td>Arrendado</td>
+            <td><span class="estado reservado">🟡 Reservado</span></td>
+            <td>Externo</td>
+            <td>$24.000</td>
+            <td>
+              <button class="btn-accion editar" title="Editar">✎</button>
+              <button class="btn-accion cancelar" title="Eliminar">✖</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Popup de Confirmación -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de eliminar el parqueadero?</p>
+      <div class="popup-buttons">
+        <button id="cancelar-popup" class="btn-cancelar">Cancelar</button>
+        <button id="aceptar-popup" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // --- Referencias popup
+    const popupEliminar = document.getElementById('popup-eliminar');
+    const btnCancelarPopup = document.getElementById('cancelar-popup');
+    const btnAceptarPopup = document.getElementById('aceptar-popup');
+
+    // Mostrar popup al hacer clic en "eliminar"
+    document.querySelectorAll('.btn-accion.cancelar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        popupEliminar.style.display = 'flex';
+      });
+    });
+
+    // Cerrar popup con cancelar
+    btnCancelarPopup.addEventListener('click', () => {
+      popupEliminar.style.display = 'none';
+    });
+
+    // Confirmar acción
+    btnAceptarPopup.addEventListener('click', () => {
+      popupEliminar.style.display = 'none';
+      alert('Parqueadero eliminado con éxito');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agregar Regla | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="agregar-regla-main">
+    <h2 class="titulo-admin">Regla Parqueadero</h2>
+
+    <form class="form-agregar-regla" id="form-regla">
+      <!-- Conjunto -->
+      <label for="conjunto">Conjunto</label>
+      <select id="conjunto" name="conjunto" required>
+        <option value="">Seleccionar</option>
+        <option value="Los Tulipanes">Los Tulipanes</option>
+        <option value="Arrayanes">Arrayanes</option>
+        <option value="Santa Clara">Santa Clara</option>
+      </select>
+
+      <!-- Título -->
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" name="titulo" placeholder="TÍTULO DE REGLA" required />
+
+      <!-- Descripción -->
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" name="descripcion" placeholder="DESCRIPCIÓN DETALLADA DE LA REGLA" rows="4" required></textarea>
+
+      <!-- Botones -->
+      <div class="botones-form">
+        <button type="button" class="btn-cancelar" onclick="window.location.href='/administracion/reglas'">Cancelar</button>
+        <button type="submit" class="btn-aceptar">Guardar</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- ✅ POPUP ÉXITO -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p>La regla ha sido agregada con éxito</p>
+      <div class="popup-buttons">
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById('form-regla');
+    const popupExito = document.getElementById('popup-exito');
+    const btnAceptar = document.getElementById('popup-aceptar');
+
+    // Mostrar popup al guardar
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      popupExito.style.display = 'flex';
+    });
+
+    // Cerrar popup y volver al listado
+    btnAceptar.addEventListener('click', () => {
+      popupExito.style.display = 'none';
+      window.location.href = '/administracion/reglas';
+    });
+  </script>
+</body>
+</html>

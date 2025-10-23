@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administración | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar') %>
+
+  <!-- Contenido principal -->
+  <main class="admin-main">
+    <h2 class="titulo-admin">Administración</h2>
+
+    <div class="cards-container">
+      <!-- PARQUEADEROS -->
+      <div class="card" onclick="window.location.href='/administracion/parqueaderos'">
+        <img src="/images/icon-parking.png" alt="Parqueaderos" class="card-icon">
+        <h3>Parqueaderos</h3>
+        <p>Inventario de los parqueaderos del conjunto</p>
+      </div>
+
+      <!-- REGLAS DE CONJUNTO -->
+      <div class="card" onclick="window.location.href='/administracion/reglas'">
+        <img src="/images/icon-rules.png" alt="Reglas de Conjunto" class="card-icon">
+        <h3>Reglas de Conjunto</h3>
+        <p>Normas del conjunto residencial de parqueaderos</p>
+      </div>
+
+      <!-- GESTIÓN DE RESERVAS -->
+      <div class="card" onclick="window.location.href='/administracion/reservas'">
+        <img src="/images/icon-reservas.png" alt="Gestión de Reservas" class="card-icon">
+        <h3>Gestión de Reservas</h3>
+        <p>Administrar las reservas de parqueaderos de visitantes</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Script (opcional, para efectos visuales o futuros pop-ups) -->
+  <script>
+    // Ejemplo de efecto hover adicional
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => card.classList.add('hover'));
+      card.addEventListener('mouseleave', () => card.classList.remove('hover'));
+    });
+  </script>
+
+</body>
+</html>

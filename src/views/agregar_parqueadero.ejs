@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agregar Parqueadero | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="agregar-parqueadero-main">
+    <h2 class="titulo-admin">Agregar Parqueadero</h2>
+
+    <form class="form-agregar-parqueadero" id="form-parqueadero">
+      <!-- Tipo -->
+      <label for="tipo">Tipo</label>
+      <select id="tipo" name="tipo" required>
+        <option value="">Seleccionar</option>
+        <option value="residente">Residente</option>
+        <option value="visitante">Visitante</option>
+        <option value="arrendado">Arrendado</option>
+      </select>
+
+      <!-- Asignado a -->
+      <label for="asignado">Asignado a (SI APLICA):</label>
+      <input type="text" id="asignado" name="asignado" placeholder="Nombres y apellidos" />
+
+      <!-- Código -->
+      <label for="codigo">Código</label>
+      <input type="text" id="codigo" name="codigo" placeholder="Código o número de parqueadero" required />
+
+      <!-- Torre/Bloque/Apartamento -->
+      <label for="ubicacion">Torre/Bloque y Apartamento (SI APLICA)</label>
+      <input type="text" id="ubicacion" name="ubicacion" placeholder="Número de torre y número de apartamento" />
+
+      <!-- Costo -->
+      <label for="costo">Costo (SI APLICA)</label>
+      <input type="number" id="costo" name="costo" placeholder="Costo mensual" min="0" />
+
+      <!-- Estado -->
+      <label for="estado">Estado</label>
+      <select id="estado" name="estado" required>
+        <option value="">Seleccionar</option>
+        <option value="disponible">Disponible</option>
+        <option value="ocupado">Ocupado</option>
+        <option value="reservado">Reservado</option>
+      </select>
+
+      <!-- Botones -->
+      <div class="botones-form">
+        <button type="button" class="btn-cancelar" onclick="window.location.href='/administracion/parqueaderos'">Cancelar</button>
+        <button type="submit" class="btn-aceptar">Agregar</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- ✅ POPUP de Éxito -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p>Se ha agregado con éxito el parqueadero</p>
+      <div class="popup-buttons">
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById('form-parqueadero');
+    const popupExito = document.getElementById('popup-exito');
+    const btnAceptarPopup = document.getElementById('popup-aceptar');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Mostrar popup
+      popupExito.style.display = 'flex';
+    });
+
+    btnAceptarPopup.addEventListener('click', () => {
+      popupExito.style.display = 'none';
+      // Redirige a la vista principal de parqueaderos
+      window.location.href = '/administracion/parqueaderos';
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis Publicaciones | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="comunidad-main">
+    <h2 class="titulo-admin">Mis Publicaciones</h2>
+    <p class="subtitulo-admin">
+      Gestiona tus parqueaderos publicados: edita la información o elimina los que ya no estén disponibles.
+    </p>
+
+    <!-- Botones superiores -->
+    <div class="comunidad-botones">
+      <button class="btn-aceptar" id="btn-nueva">Nueva Publicación</button>
+      <button class="btn-secundario" id="btn-ver">Ver Comunidad</button>
+    </div>
+
+    <!-- Lista de publicaciones -->
+    <section class="publicaciones-lista">
+      <!-- Ejemplo publicación -->
+      <div class="publicacion-card">
+        <div class="publicacion-img">
+          <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+        </div>
+
+        <div class="publicacion-info">
+          <h3>Parqueadero de carro Los Robles</h3>
+          <p>Parqueadero cubierto de carro cerca del portón principal.</p>
+          <p><strong>$150.000 / Mes</strong></p>
+          <p>Disponible desde: <strong>19 Oct</strong></p>
+        </div>
+
+        <div class="publicacion-detalles">
+          <div class="detalle">
+            <span class="indicador verde"></span>
+            <span class="texto-detalle">Cubierto</span>
+          </div>
+          <div class="detalle">
+            <img src="/images/icon-car.png" alt="Carro" class="icono-detalle"/>
+            <span class="texto-detalle">Carro</span>
+          </div>
+
+          <div class="acciones-publicacion">
+            <button class="btn-accion editar" title="Editar">✎</button>
+            <button class="btn-accion cancelar" title="Eliminar">✖</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ejemplo 2 -->
+      <div class="publicacion-card">
+        <div class="publicacion-img">
+          <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+        </div>
+
+        <div class="publicacion-info">
+          <h3>Parqueadero de moto Arces Amarillos</h3>
+          <p>Parqueadero compartido, descubierto.</p>
+          <p><strong>$65.000 / Mes</strong></p>
+          <p>Disponible desde: <strong>1 Nov</strong></p>
+        </div>
+
+        <div class="publicacion-detalles">
+          <div class="detalle">
+            <span class="indicador amarillo"></span>
+            <span class="texto-detalle">Descubierto</span>
+          </div>
+          <div class="detalle">
+            <img src="/images/icon-motorcycle.png" alt="Moto" class="icono-detalle"/>
+            <span class="texto-detalle">Moto</span>
+          </div>
+
+          <div class="acciones-publicacion">
+            <button class="btn-accion editar" title="Editar">✎</button>
+            <button class="btn-accion cancelar" title="Eliminar">✖</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Popup eliminar (idéntico al de reglas del conjunto) -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de eliminar esta publicación?</p>
+      <div class="popup-buttons">
+        <button id="popup-cancelar" class="btn-cancelar">Cancelar</button>
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const popupEliminar = document.getElementById('popup-eliminar');
+    const btnCancelar = document.getElementById('popup-cancelar');
+    const btnAceptar = document.getElementById('popup-aceptar');
+    const btnNueva = document.getElementById('btn-nueva');
+    const btnVer = document.getElementById('btn-ver');
+
+    // Redirecciones
+    btnNueva.addEventListener('click', () => {
+      window.location.href = '/comunidad/agregar';
+    });
+    btnVer.addEventListener('click', () => {
+      window.location.href = '/comunidad';
+    });
+    // Redirección al editar (lleva al mismo formulario comunidad_agregar)
+  document.querySelectorAll('.btn-accion.editar').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.location.href = '/comunidad/agregar';
+    });
+  });
+
+
+    // Mostrar popup al hacer clic en eliminar (ajustado)
+    document.querySelectorAll('.btn-accion.cancelar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        popupEliminar.style.display = 'flex';
+      });
+    });
+
+    // Cerrar popup con cancelar
+    btnCancelar.addEventListener('click', () => {
+      popupEliminar.style.display = 'none';
+    });
+
+    // Confirmar eliminación
+    btnAceptar.addEventListener('click', () => {
+      popupEliminar.style.display = 'none';
+      mostrarPopupExito();
+    });
+
+    // Mostrar popup de éxito igual al de agregar parqueadero
+    function mostrarPopupExito() {
+      const popupExito = document.createElement('div');
+      popupExito.classList.add('popup');
+      popupExito.style.display = 'flex';
+      popupExito.innerHTML = `
+        <div class="popup-content">
+          <p>Publicación eliminada con éxito.</p>
+          <div class="popup-buttons">
+            <button id="cerrar-exito" class="btn-aceptar">Aceptar</button>
+          </div>
+        </div>`;
+      document.body.appendChild(popupExito);
+
+      document.getElementById('cerrar-exito').addEventListener('click', () => {
+        popupExito.remove();
+      });
+    }
+  </script>
+</body>
+</html>
+
+    

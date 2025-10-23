@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="perfil-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <!-- Contenido principal -->
+  <main class="perfil-main">
+    <div class="perfil-container">
+      
+      <!-- LADO IZQUIERDO -->
+      <aside class="perfil-left">
+        <div class="perfil-card">
+          <h3>PERFIL</h3>
+          <div class="perfil-icon">
+            <img src="/images/icon-user.png" alt="Usuario">
+          </div>
+          <button class="btn-foto">Cambiar la foto de perfil</button>
+        </div>
+
+        <div class="notificaciones">
+          <h3>NOTIFICACIONES</h3>
+          <div class="toggle">
+            <label>RESERVAS</label>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="toggle">
+            <label>PUBLICACIONES</label>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- LADO DERECHO -->
+      <section class="perfil-right">
+        <h2>DATOS PERSONALES</h2>
+        <form id="perfil-form">
+          <label>Nombre Completo</label>
+          <input type="text" placeholder="NOMBRES Y APELLIDOS">
+
+          <label>Correo</label>
+          <input type="email" placeholder="CORREO ELECTRONICO">
+
+          <label>Conjunto</label>
+          <input type="text" placeholder="NOMBRE DE CONJUNTO">
+
+          <label>Torre/Bloque y Apartamento</label>
+          <input type="text" placeholder="NÚMERO DE TORRE Y NÚMERO DE APARTAMENTO">
+
+          <label>Contraseña</label>
+          <input type="password" placeholder="CONTRASEÑA">
+
+          <div class="perfil-buttons">
+            <button type="button" class="btn-cancelar" onclick="window.location.href='/inicio'">Cancelar</button>
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- POPUP DE ÉXITO -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p>Cambios guardados con éxito!</p>
+      <div class="popup-buttons">
+        <button id="popup-cerrar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const perfilForm = document.getElementById('perfil-form');
+    const popupExito = document.getElementById('popup-exito');
+    const popupCerrar = document.getElementById('popup-cerrar');
+
+    perfilForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      popupExito.style.display = 'flex';
+    });
+
+    popupCerrar.addEventListener('click', () => {
+      popupExito.style.display = 'none';
+    });
+
+    // Cerrar si se hace clic fuera del popup
+    window.addEventListener('click', (e) => {
+      if (e.target === popupExito) {
+        popupExito.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

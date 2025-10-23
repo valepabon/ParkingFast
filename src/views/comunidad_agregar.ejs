@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nueva Publicación | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="comunidad-main">
+    <h2 class="titulo-admin">Nueva Publicación de Parqueadero</h2>
+
+    <form class="formulario-publicacion">
+      <div class="form-fila">
+        <div class="form-grupo">
+          <label for="tipo-parqueadero">Tipo de parqueadero</label>
+          <select id="tipo-parqueadero" required>
+            <option value="">Seleccionar</option>
+            <option value="cubierto">Cubierto</option>
+            <option value="descubierto">Descubierto</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label for="tipo-vehiculo">Tipo de vehículo</label>
+          <select id="tipo-vehiculo" required>
+            <option value="">Seleccionar</option>
+            <option value="carro">Carro</option>
+            <option value="moto">Moto</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-fila">
+        <div class="form-grupo">
+          <label for="precio">Precio</label>
+          <input type="text" id="precio" placeholder="Precio" required />
+        </div>
+
+        <div class="form-grupo">
+          <label for="fecha">Disponibilidad desde</label>
+          <input type="date" id="fecha" required />
+        </div>
+      </div>
+
+      <div class="form-fila">
+        <div class="form-grupo">
+          <label for="propietario">Nombre del propietario</label>
+          <input type="text" id="propietario" value="Juan Perez" readonly />
+        </div>
+
+        <div class="form-grupo">
+          <label for="telefono">Teléfono de contacto</label>
+          <input type="text" id="telefono" placeholder="300 000 0000" required />
+        </div>
+      </div>
+
+      <div class="form-fila">
+        <div class="form-grupo">
+          <label for="ubicacion">Ubicación / Conjunto</label>
+          <select id="ubicacion" required>
+            <option value="">Seleccionar</option>
+            <option value="los-robles">Conjunto Los Robles</option>
+            <option value="arces-amarillos">Conjunto Arces Amarillos</option>
+          </select>
+        </div>
+
+        <div class="form-grupo">
+          <label for="descripcion">Descripción</label>
+          <input type="text" id="descripcion" placeholder="Descripción" required />
+        </div>
+      </div>
+
+      <div class="form-botones">
+        <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn-aceptar" id="btn-publicar">Publicar</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Popup de confirmación -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p>Se ha publicado con éxito tu parqueadero.</p>
+      <div class="popup-buttons">
+        <button id="cerrar-exito" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const btnCancelar = document.getElementById('btn-cancelar');
+    const btnPublicar = document.getElementById('btn-publicar');
+    const popupExito = document.getElementById('popup-exito');
+    const btnCerrarExito = document.getElementById('cerrar-exito');
+
+    // Cancelar y volver a Mis Publicaciones
+    btnCancelar.addEventListener('click', () => {
+      window.location.href = '/comunidad/mis-publicaciones';
+    });
+
+    // Mostrar popup al publicar
+    btnPublicar.addEventListener('click', (e) => {
+      e.preventDefault();
+      popupExito.style.display = 'flex';
+    });
+
+    // Cerrar popup y redirigir
+    btnCerrarExito.addEventListener('click', () => {
+      popupExito.style.display = 'none';
+      window.location.href = '/comunidad/mis-publicaciones';
+    });
+  </script>
+</body>
+</html>

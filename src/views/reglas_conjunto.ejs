@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reglas del Conjunto | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="reglas-main">
+    <h2 class="titulo-admin">Reglas del Conjunto</h2>
+    <p class="subtitulo-admin">
+      Configura y gestiona las normas, tarifas y políticas del conjunto residencial.
+    </p>
+
+    <!-- Botón agregar -->
+    <div class="contenedor-boton-agregar">
+      <button type="submit" class="btn-aceptar" onclick="window.location.href='/administracion/reglas/agregar'">
+        Agregar Nueva
+      </button>
+      
+    </div>
+
+    <!-- Lista de reglas -->
+    <section class="lista-reglas">
+      <!-- Regla 1 -->
+      <div class="regla-card">
+        <div class="regla-icono">
+          <img src="/images/icon-clock.png" alt="Horario">
+        </div>
+        <div class="regla-info">
+          <h3>Horarios Permitidos</h3>
+          <p>Define cuándo pueden ingresar visitantes o residentes.</p>
+          <p><strong>Visitantes:</strong> 6 am - 10 pm</p>
+        </div>
+        <div class="regla-acciones">
+          <button class="btn-accion cancelar" title="Cancelar">✖</button>
+          <button class="btn-accion editar" title="Editar">✎</button>
+        </div>
+      </div>
+
+      <!-- Regla 2 -->
+      <div class="regla-card">
+        <div class="regla-icono">
+          <img src="/images/icon-dollar.png" alt="Tarifas">
+        </div>
+        <div class="regla-info">
+          <h3>Tarifas de Arriendo</h3>
+          <p>Configura costos por hora o mensualidad.</p>
+          <p><strong>Visitantes:</strong> $3,000/hora después de 3 horas.</p>
+        </div>
+        <div class="regla-acciones">
+          <button class="btn-accion cancelar" title="Cancelar">✖</button>
+          <button class="btn-accion editar" title="Editar">✎</button>
+        </div>
+      </div>
+
+      <!-- Regla 3 -->
+      <div class="regla-card">
+        <div class="regla-icono">
+          <img src="/images/icon-car.png" alt="Límites">
+        </div>
+        <div class="regla-info">
+          <h3>Límites de Uso</h3>
+          <p>Reglas de permanencia, multas o tiempos máximos.</p>
+          <p><strong>Máx:</strong> 5 h por visitante.</p>
+        </div>
+        <div class="regla-acciones">
+          <button class="btn-accion cancelar" title="Cancelar">✖</button>
+          <button class="btn-accion editar" title="Editar">✎</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Popup eliminar -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de eliminar esta regla del conjunto?</p>
+      <div class="popup-buttons">
+        <button id="popup-cancelar" class="btn-cancelar">Cancelar</button>
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const popupEliminar = document.getElementById('popup-eliminar');
+    const btnCancelar = document.getElementById('popup-cancelar');
+    const btnAceptar = document.getElementById('popup-aceptar');
+
+    // Mostrar popup
+    document.querySelectorAll('.btn-accion.cancelar').forEach(btn => {
+      btn.addEventListener('click', () => popupEliminar.style.display = 'flex');
+    });
+
+    // Cerrar popup
+    btnCancelar.addEventListener('click', () => popupEliminar.style.display = 'none');
+    btnAceptar.addEventListener('click', () => {
+      popupEliminar.style.display = 'none';
+      alert('Regla eliminada con éxito');
+    });
+
+    // Agregar nueva
+    document.getElementById('btn-agregar').addEventListener('click', () => {
+      alert('Formulario para agregar nueva regla próximamente');
+    });
+  </script>
+</body>
+</html>

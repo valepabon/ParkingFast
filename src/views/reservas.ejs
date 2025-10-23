@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservas | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="reservas-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="reservas-main">
+    <!-- Panel izquierdo -->
+    <section class="reservas-lista">
+      <h2>Mis Reservas</h2>
+
+      <!-- Ejemplo reserva activa -->
+      <div class="reserva-card activa">
+        <div class="reserva-icono">
+          <img src="/images/check-green.png" alt="Activa" />
+        </div>
+        <div class="reserva-info">
+          <h3>Conjunto Los Tulipanes</h3>
+          <p>20 oct, 12:30 pm - 3:00 pm</p>
+          <p class="placa">DDS-991</p>
+        </div>
+        <div class="reserva-acciones">
+          <button class="btn-editar">✎</button>
+          <button class="btn-eliminar">✖</button>
+        </div>
+      </div>
+
+      <!-- Ejemplo reserva pasada -->
+      <div class="reserva-card inactiva">
+        <div class="reserva-icono">
+          <img src="/images/check-gray.png" alt="Inactiva" />
+        </div>
+        <div class="reserva-info">
+          <h3>Conjunto Los Tulipanes</h3>
+          <p>12 oct, 2:30 pm - 6:00 pm</p>
+          <p class="placa">DDS-991</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel derecho -->
+    <section class="reservas-nueva">
+      <h2>Crear Nueva Reserva</h2>
+      <form id="form-nueva">
+        <label for="parqueadero">Parqueadero</label>
+        <select id="parqueadero">
+          <option>Seleccionar</option>
+          <option>Conjunto Los Tulipanes</option>
+          <option>Conjunto Arrayanes</option>
+        </select>
+
+        <label for="fecha">Fecha de Reserva</label>
+        <input type="date" id="fecha" />
+
+        <div class="horarios">
+          <div>
+            <label for="horaInicio">Hora Inicio</label>
+            <input type="time" id="horaInicio" />
+          </div>
+          <div>
+            <label for="horaFin">Hora Fin</label>
+            <input type="time" id="horaFin" />
+          </div>
+        </div>
+
+        <label for="placa">Placa del Vehículo</label>
+        <input type="text" id="placa" placeholder="Placa de Vehículo" />
+
+        <button type="submit" class="btn-reservar">Reservar parqueadero</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Ventana modal de edición -->
+  <div id="modal-editar" class="modal">
+    <div class="modal-content">
+      <h3>Conjunto Los Tulipanes</h3>
+
+      <form id="form-editar">
+        <label for="edit-parqueadero">Parqueadero</label>
+        <select id="edit-parqueadero">
+          <option>p-24</option>
+          <option>p-25</option>
+          <option>p-26</option>
+        </select>
+
+        <label for="edit-fecha">Fecha de Reserva</label>
+        <input type="date" id="edit-fecha" value="2025-10-20">
+
+        <div class="horarios">
+          <div>
+            <label for="edit-hora-inicio">Hora Inicio</label>
+            <input type="time" id="edit-hora-inicio" value="12:30">
+          </div>
+          <div>
+            <label for="edit-hora-fin">Hora Fin</label>
+            <input type="time" id="edit-hora-fin" value="15:00">
+          </div>
+        </div>
+
+        <label for="edit-placa">Placa del Vehículo</label>
+        <input type="text" id="edit-placa" value="DDS-991">
+
+        <div class="modal-buttons">
+          <button type="button" id="cancelar" class="btn-cancelar">Cancelar</button>
+          <button type="submit" id="aceptar" class="btn-aceptar">Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUPS -->
+  <div id="popup-confirmar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de cancelar la reservación?</p>
+      <div class="popup-buttons">
+        <button id="popup-cancelar" class="btn-cancelar">Cancelar</button>
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p id="popup-mensaje">Reservación actualizada con éxito!</p>
+      <div class="popup-buttons">
+        <button id="popup-cerrar" class="btn-aceptar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // === Modal de Edición ===
+    const modal = document.getElementById('modal-editar');
+    const reservaActiva = document.querySelector('.reserva-card.activa');
+    const cancelar = document.getElementById('cancelar');
+    const formEditar = document.getElementById('form-editar');
+
+    reservaActiva.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+
+    cancelar.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Cerrar modal clic fuera
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // Guardar cambios en modal
+    formEditar.addEventListener('submit', (e) => {
+      e.preventDefault();
+      modal.style.display = 'none';
+      mostrarExito('Reservación actualizada con éxito!');
+    });
+
+    // === POPUPS ===
+    const popupConfirmar = document.getElementById('popup-confirmar');
+    const popupExito = document.getElementById('popup-exito');
+    const popupMensaje = document.getElementById('popup-mensaje');
+
+    const btnCancelarPopup = document.getElementById('popup-cancelar');
+    const btnAceptarPopup = document.getElementById('popup-aceptar');
+    const btnCerrarExito = document.getElementById('popup-cerrar');
+
+    // Mostrar confirmación
+    function mostrarConfirmacion() {
+      popupConfirmar.style.display = 'flex';
+    }
+
+    // Mostrar éxito con mensaje personalizado
+    function mostrarExito(mensaje) {
+      popupMensaje.textContent = mensaje;
+      popupExito.style.display = 'flex';
+    }
+
+    // Cerrar popups
+    btnCancelarPopup.onclick = () => popupConfirmar.style.display = 'none';
+    btnCerrarExito.onclick = () => popupExito.style.display = 'none';
+    btnAceptarPopup.onclick = () => {
+      popupConfirmar.style.display = 'none';
+      mostrarExito('Reservación cancelada con éxito!');
+    };
+
+    // === Eventos ===
+    const btnEliminar = document.querySelector('.btn-eliminar');
+    const formNueva = document.getElementById('form-nueva');
+
+    btnEliminar.addEventListener('click', mostrarConfirmacion);
+
+    formNueva.addEventListener('submit', (e) => {
+      e.preventDefault();
+      mostrarExito('Reservación creada con éxito!');
+    });
+  </script>
+
+</body>
+</html>
+

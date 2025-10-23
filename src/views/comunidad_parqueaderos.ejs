@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comunidad de Parqueaderos | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="comunidad-main">
+    <h2 class="titulo-admin">Comunidad de Parqueaderos</h2>
+    <p class="subtitulo-admin">
+      Publica tu parqueadero disponible o encuentra uno para arrendar.
+    </p>
+
+    <!-- Botones superiores -->
+    <div class="comunidad-botones">
+      <button class="btn-aceptar" id="btn-nueva">Nueva Publicación</button>
+      <button class="btn-secundario" id="btn-mis">Mis Publicaciones</button>
+    </div>
+
+    <!-- Listado de publicaciones -->
+    <section class="publicaciones-lista">
+      <!-- Publicación 1 -->
+      <div class="publicacion-card">
+        <div class="publicacion-img">
+          <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+        </div>
+
+        <div class="publicacion-info">
+          <h3>Parqueadero de carro Los Robles</h3>
+          <p>Parqueadero cubierto de carro cerca del portón principal.</p>
+          <p><strong>$150.000 / Mes</strong></p>
+          <p>Disponible desde: <strong>19 Oct</strong></p>
+        </div>
+
+        <div class="publicacion-detalles">
+          <div class="detalle">
+            <span class="indicador verde"></span>
+            <span class="texto-detalle">Cubierto</span>
+          </div>
+          <div class="detalle">
+            <i class="fa-solid fa-car"></i>
+            <span class="texto-detalle">Carro</span>
+          </div>
+          <button class="btn-telefono">301 887 6234</button>
+        </div>
+      </div>
+
+      <!-- Publicación 2 -->
+      <div class="publicacion-card">
+        <div class="publicacion-img">
+          <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+        </div>
+
+        <div class="publicacion-info">
+          <h3>Parqueadero de moto Arces Amarillos</h3>
+          <p>Parqueadero descubierto de moto.</p>
+          <p><strong>$65.000 / Mes</strong></p>
+          <p>Disponible desde: <strong>1 Nov</strong></p>
+        </div>
+
+        <div class="publicacion-detalles">
+          <div class="detalle">
+            <span class="indicador amarillo"></span>
+            <span class="texto-detalle">Descubierto</span>
+          </div>
+          <div class="detalle">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span class="texto-detalle">Moto</span>
+          </div>
+          <button class="btn-telefono">301 345 7890</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('btn-nueva').addEventListener('click', () => {
+      window.location.href = '/comunidad/agregar';
+    });
+    document.getElementById('btn-mis').addEventListener('click', () => {
+      window.location.href = '/comunidad/mis-publicaciones';
+    });
+  </script>
+</body>
+</html>
+

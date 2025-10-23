@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Reservas | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <main class="reservas-admin-main">
+    <h2 class="titulo-admin">Gestión de Reservas</h2>
+    <p class="subtitulo-admin">Monitorea, valida o cancela las reservas de parqueaderos de visitantes en tu conjunto residencial.</p>
+
+    <!-- Filtros -->
+    <div class="filtros-reservas">
+      <button class="filtro activo">Activas <span>6</span></button>
+      <button class="filtro confirmadas">Confirmadas <span>9</span></button>
+      <button class="filtro pendientes">Pendientes <span>3</span></button>
+      <button class="filtro canceladas">Canceladas <span>1</span></button>
+      <button class="filtro cerradas">Cerradas <span>0</span></button>
+    </div>
+
+    <!-- Tabla -->
+    <section class="tabla-container">
+      <table class="tabla-reservas">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Parqueadero</th>
+            <th>Placa</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>R-102</td>
+            <td>P-23</td>
+            <td>DDS-991</td>
+            <td>20/10/2025</td>
+            <td><span class="estado confirmada">Confirmada</span></td>
+            <td>
+              <button class="btn-accion cerrar" title="Cerrar reserva">✔</button>
+              <button class="btn-accion cancelar" title="Cancelar reserva">✖</button>
+            </td>
+          </tr>
+          <tr>
+            <td>R-104</td>
+            <td>P-22</td>
+            <td>ABC-123</td>
+            <td>20/10/2025</td>
+            <td><span class="estado pendiente">Pendiente</span></td>
+            <td>
+              <button class="btn-accion cerrar" title="Cerrar reserva">✔</button>
+              <button class="btn-accion cancelar" title="Cancelar reserva">✖</button>
+            </td>
+          </tr>
+          <tr>
+            <td>R-110</td>
+            <td>P-20</td>
+            <td>XYZ-987</td>
+            <td>20/10/2025</td>
+            <td><span class="estado activa">Activa</span></td>
+            <td>
+              <button class="btn-accion cerrar" title="Cerrar reserva">✔</button>
+              <button class="btn-accion cancelar" title="Cancelar reserva">✖</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- POPUPS -->
+  <div id="popup-confirmar" class="popup">
+    <div class="popup-content">
+      <p id="popup-pregunta">¿Desea cerrar la reservación?</p>
+      <div class="popup-buttons">
+        <button id="popup-cancelar" class="btn-cancelar">Cancelar</button>
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p id="popup-mensaje">Reservación actualizada con éxito!</p>
+      <div class="popup-buttons">
+        <button id="popup-cerrar" class="btn-aceptar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Referencias
+    const popupConfirmar = document.getElementById('popup-confirmar');
+    const popupExito = document.getElementById('popup-exito');
+    const popupMensaje = document.getElementById('popup-mensaje');
+    const popupPregunta = document.getElementById('popup-pregunta');
+    const btnCancelarPopup = document.getElementById('popup-cancelar');
+    const btnAceptarPopup = document.getElementById('popup-aceptar');
+    const btnCerrarExito = document.getElementById('popup-cerrar');
+
+    let accionActual = ''; // 'cerrar' o 'cancelar'
+
+    // Mostrar confirmación según acción
+    function mostrarConfirmacion(tipo) {
+      accionActual = tipo;
+      if (tipo === 'cerrar') {
+        popupPregunta.textContent = '¿Desea cerrar la reservación?';
+      } else {
+        popupPregunta.textContent = '¿Desea cancelar la reservación?';
+      }
+      popupConfirmar.style.display = 'flex';
+    }
+
+    // Mostrar popup de éxito
+    function mostrarExito(mensaje) {
+      popupMensaje.textContent = mensaje;
+      popupExito.style.display = 'flex';
+    }
+
+    // Eventos botones popup
+    btnCancelarPopup.onclick = () => popupConfirmar.style.display = 'none';
+    btnCerrarExito.onclick = () => popupExito.style.display = 'none';
+
+    btnAceptarPopup.onclick = () => {
+      popupConfirmar.style.display = 'none';
+      if (accionActual === 'cerrar') {
+        mostrarExito('Reservación cerrada con éxito!');
+      } else {
+        mostrarExito('Reservación cancelada con éxito!');
+      }
+    };
+
+    // Asociar botones de tabla
+    document.querySelectorAll('.btn-accion.cerrar').forEach(btn => {
+      btn.addEventListener('click', () => mostrarConfirmacion('cerrar'));
+    });
+    document.querySelectorAll('.btn-accion.cancelar').forEach(btn => {
+      btn.addEventListener('click', () => mostrarConfirmacion('cancelar'));
+    });
+  </script>
+</body>
+</html>
+
