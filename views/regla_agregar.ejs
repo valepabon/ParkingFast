@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= tituloPagina %> | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { titulo: tituloPagina }) %>
+
+  <main class="agregar-regla-main">
+    <h2 class="titulo-admin"><%= tituloPagina %></h2>
+
+    <form id="form-regla" class="form-agregar-regla">
+
+      <!-- Conjunto -->
+      <label for="conjunto">Conjunto</label>
+      <select id="conjunto" name="conjunto" required>
+        <option value="">Seleccionar</option>
+        <option value="Los Tulipanes" <%= regla && regla.conjunto === "Los Tulipanes" ? "selected" : "" %>>Los Tulipanes</option>
+        <option value="Arrayanes" <%= regla && regla.conjunto === "Arrayanes" ? "selected" : "" %>>Arrayanes</option>
+        <option value="Santa Clara" <%= regla && regla.conjunto === "Santa Clara" ? "selected" : "" %>>Santa Clara</option>
+      </select>
+
+      <!-- Título -->
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" name="titulo"
+             value="<%= regla ? regla.titulo : '' %>"
+             placeholder="TÍTULO DE LA REGLA" required />
+
+      <!-- Descripción -->
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" name="descripcion" rows="4" required>
+<%= regla ? regla.descripcion : '' %>
+      </textarea>
+
+      <!-- Botones -->
+      <div class="botones-form">
+        <button type="button" class="btn-cancelar" onclick="window.location.href='/administracion/reglas'">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-aceptar">Guardar</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Popup Éxito -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p>La regla ha sido <%= modo === 'editar' ? 'actualizada' : 'agregada' %> con éxito</p>
+      <div class="popup-buttons">
+        <button id="aceptar-exito" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const modo = "<%= modo %>";
+    const reglaId = "<%= regla ? regla._id : '' %>";
+
+    const form = document.getElementById("form-regla");
+    const popup = document.getElementById("popup-exito");
+    const btnAceptar = document.getElementById("aceptar-exito");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        conjunto: form.conjunto.value,
+        titulo: form.titulo.value,
+        descripcion: form.descripcion.value
+      };
+
+      const url = modo === "editar"
+        ? `/administracion/reglas/actualizar/${reglaId}`
+        : "/administracion/reglas/guardar";
+
+      const method = modo === "editar" ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (json.exito) popup.style.display = "flex";
+      else alert("Error al guardar la regla");
+    });
+
+    btnAceptar.onclick = () => {
+      window.location.href = "/administracion/reglas";
+    };
+  </script>
+
+</body>
+</html>
+

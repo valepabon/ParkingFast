@@ -1,0 +1,21 @@
+<header class="navbar">
+    <nav>
+      <ul class="nav-left">
+        <li><a href="/inicio" class="<%= titulo === 'Inicio' ? 'active' : '' %>">INICIO</a></li>
+        <li><a href="#">NOSOTROS</a></li>
+        <li><a href="#">CONJUNTOS ASOCIADOS</a></li>
+      </ul>
+  
+      <div class="nav-logo">
+        <img src="/images/logo.png" alt="ParkingFast Logo" class="logo-nav">
+        <span></span>
+      </div>
+  
+      <ul class="nav-right">
+        <li><a href="/reservas" class="<%= titulo === 'Reservas' ? 'active' : '' %>">MIS RESERVAS</a></li>
+        <li><a href="/usuarios/perfil" class="<%= titulo === 'Perfil de Usuario' ? 'active' : '' %>">PERFIL</a></li>
+        <li><a href="/login" title="Cerrar sesión" class="logout-btn">⮐</a></li>
+      </ul>
+    </nav>
+  </header>
+  

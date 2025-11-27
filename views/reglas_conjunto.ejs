@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reglas del Conjunto | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { titulo: "Reglas del Conjunto" }) %>
+
+  <main class="reglas-main">
+
+    <div class="contenedor-reglas">
+      <div class="encabezado-reglas">
+        <div>
+          <h2 class="titulo-admin">Reglas del Conjunto</h2>
+          <p class="subtitulo-admin">Configura y gestiona las normas, tarifas y políticas del conjunto residencial.</p>
+        </div>
+        <button class="btn-aceptar" onclick="window.location.href='/administracion/reglas/agregar'">
+          Agregar Nueva
+        </button>
+      </div>
+
+      <!-- Lista de reglas -->
+      <section class="lista-reglas">
+        <% if (reglas.length === 0) { %>
+          <p style="text-align:center; margin-top:20px;">No hay reglas registradas aún.</p>
+        <% } %>
+
+        <% reglas.forEach(r => { %>
+          <div class="regla-card">
+            <div class="regla-icono">
+              <img src="/images/icon-clock.png" alt="Regla">
+            </div>
+
+            <div class="regla-info">
+              <h3><%= r.titulo %></h3>
+              <p><%= r.descripcion %></p>
+              <p><strong>Conjunto:</strong> <%= r.conjunto %></p>
+            </div>
+
+            <div class="regla-acciones">
+              <button class="btn-accion cancelar" onclick="confirmarEliminar('<%= r._id %>')" title="Eliminar">✖</button>
+              <button class="btn-accion editar" onclick="window.location.href='/administracion/reglas/editar/<%= r._id %>'" title="Editar">✎</button>
+            </div>
+          </div>
+        <% }) %>
+      </section>
+    </div>
+  </main>
+
+  <!-- Popup eliminar -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de eliminar esta regla del conjunto?</p>
+      <div class="popup-buttons">
+        <button id="popup-cancelar" class="btn-cancelar">Cancelar</button>
+        <button id="popup-aceptar" class="btn-aceptar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const popup = document.getElementById('popup-eliminar');
+    const btnCancelar = document.getElementById('popup-cancelar');
+    const btnAceptar = document.getElementById('popup-aceptar');
+    let reglaId = null;
+
+    function confirmarEliminar(id) {
+      reglaId = id;
+      popup.style.display = 'flex';
+    }
+
+    btnCancelar.onclick = () => {
+      popup.style.display = 'none';
+    };
+
+    btnAceptar.onclick = async () => {
+      try {
+        const res = await fetch(`/administracion/reglas/eliminar/${reglaId}`, {
+          method: 'DELETE'
+        });
+
+        const json = await res.json();
+
+        if (json.exito) {
+          location.reload();
+        } else {
+          alert("Error al eliminar regla.");
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("Error del servidor");
+      }
+    };
+  </script>
+
+</body>
+</html>
+

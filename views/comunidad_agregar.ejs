@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= publicacion ? "Editar Publicación" : "Nueva Publicación" %> | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar', { titulo: 'Comunidad' }) %>
+
+  <main class="comunidad-main">
+    <section class="form-publicacion-container">
+
+      <!-- TÍTULO -->
+      <h2 class="form-titulo">
+        <%= publicacion ? "Editar Publicación" : "Nueva Publicación de Parqueadero" %>
+      </h2>
+
+      <form class="formulario-publicacion" id="form-publicacion">
+
+        <!-- TIPO Y VEHÍCULO -->
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label for="tipo-parqueadero">Tipo de parqueadero</label>
+            <select id="tipo-parqueadero" name="tipoParqueadero" required>
+              <option value="">Seleccionar</option>
+              <option value="cubierto" <%= publicacion && publicacion.tipoParqueadero === "cubierto" ? "selected" : "" %>>Cubierto</option>
+              <option value="descubierto" <%= publicacion && publicacion.tipoParqueadero === "descubierto" ? "selected" : "" %>>Descubierto</option>
+            </select>
+          </div>
+
+          <div class="form-grupo">
+            <label for="tipo-vehiculo">Tipo de vehículo</label>
+            <select id="tipo-vehiculo" name="tipoVehiculo" required>
+              <option value="">Seleccionar</option>
+              <option value="carro" <%= publicacion && publicacion.tipoVehiculo === "carro" ? "selected" : "" %>>Carro</option>
+              <option value="moto" <%= publicacion && publicacion.tipoVehiculo === "moto" ? "selected" : "" %>>Moto</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- PRECIO Y FECHA -->
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label for="precio">Precio</label>
+            <div class="precio-wrapper">
+              <span>$</span>
+              <input 
+                type="text"
+                id="precio"
+                name="precio"
+                required
+                value="<%= publicacion ? publicacion.precio : '' %>">
+            </div>
+          </div>
+
+          <div class="form-grupo">
+            <label for="fecha">Disponibilidad desde</label>
+            <input
+              type="date"
+              id="fecha"
+              name="fecha"
+              required
+              value="<%= publicacion ? new Date(publicacion.fechaDisponible).toISOString().split('T')[0] : '' %>">
+          </div>
+        </div>
+
+        <!-- PROPIETARIO Y TELÉFONO -->
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label for="propietario">Nombre del propietario</label>
+            <input type="text" readonly value="<%= usuario.nombre %>" />
+          </div>
+
+          <div class="form-grupo">
+            <label for="telefono">Teléfono</label>
+            <input
+              type="text"
+              id="telefono"
+              name="telefono"
+              required
+              value="<%= publicacion ? publicacion.telefono : '' %>">
+          </div>
+        </div>
+
+        <!-- UBICACIÓN Y DESCRIPCIÓN -->
+        <div class="form-fila">
+          <div class="form-grupo">
+            <label for="ubicacion">Ubicación / Conjunto</label>
+            <input
+              type="text"
+              id="ubicacion"
+              name="ubicacion"
+              required
+              value="<%= publicacion ? publicacion.conjunto : '' %>">
+          </div>
+
+          <div class="form-grupo">
+            <label for="descripcion">Descripción</label>
+            <input
+              type="text"
+              id="descripcion"
+              name="descripcion"
+              required
+              value="<%= publicacion ? publicacion.descripcion : '' %>">
+          </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="form-botones">
+          <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+
+          <button type="submit" class="btn-aceptar">
+            <%= publicacion ? "Guardar Cambios" : "Publicar" %>
+          </button>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+  <!-- POPUP -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p><%= publicacion ? "Cambios guardados correctamente" : "Publicación creada con éxito" %></p>
+      <div class="popup-buttons">
+        <button id="cerrar-exito" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+<!-- ==============================
+     JS FINAL Y FUNCIONAL
+================================== -->
+<script>
+  // Formato de precio con separador de miles
+  const precioInput = document.getElementById("precio");
+  precioInput.addEventListener("input", () => {
+    let raw = precioInput.value.replace(/\D/g, "");
+    precioInput.value = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  });
+
+  const form = document.getElementById("form-publicacion");
+  const popup = document.getElementById("popup-exito");
+  const cerrarBtn = document.getElementById("cerrar-exito");
+
+  // Determinar si es edición
+  const esEdicion = "<%= publicacion ? 'true' : 'false' %>" === "true";
+
+  // URL según modo
+  const url = esEdicion
+    ? "/comunidad/editar/<%= publicacion ? publicacion._id : '' %>"
+    : "/comunidad/agregar";
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const datos = {
+      tipoParqueadero: form.tipoParqueadero.value,
+      tipoVehiculo: form.tipoVehiculo.value,
+      precio: precioInput.value.replace(/\./g, ""),
+      fecha: form.fecha.value,
+      telefono: form.telefono.value,
+      ubicacion: form.ubicacion.value,
+      descripcion: form.descripcion.value
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    });
+
+    const json = await res.json();
+    if (json.exito) {
+      popup.style.display = "flex";
+    } else {
+      alert("❌ Hubo un error al guardar.");
+    }
+  });
+
+  cerrarBtn.addEventListener("click", () => {
+    window.location.href = "/comunidad/mis-publicaciones";
+  });
+
+  document.getElementById("btn-cancelar").addEventListener("click", () => {
+    history.back();
+  });
+</script>
+
+</body>
+</html>
+
+

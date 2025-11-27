@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="/images/logo.svg" type="image/svg+xml">
+</head>
+<body class="inicio-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar') %>
+
+  <!-- Contenido principal -->
+  <main class="inicio-main">
+    <h1>Bienvenido, <span class="usuario"><%= usuario?.nombre || 'Invitado' %></span></h1>
+
+
+
+    <div class="cards-container">
+
+      <!-- CARD: Reservas -->
+      <a href="/reservas" class="card-link">
+        <div class="card">
+          <img src="/images/icon-calendar.png" alt="Reservas" class="card-icon">
+          <h3>Reservas</h3>
+          <p>Consulta tus reservas activas o crea una nueva para visitantes en tu conjunto residencial.</p>
+        </div>
+      </a>
+
+      <!-- CARD: Administración -->
+      <a href="/administracion" class="card-link">
+        <div class="card">
+          <img src="/images/icon-admin.png" alt="Administración" class="card-icon">
+          <h3>Administración</h3>
+          <p>Módulo para administración y portería: configuración de parqueaderos, tarifas y control de acceso vehicular.</p>
+        </div>
+      </a>
+
+      <!-- CARD: Comunidad de Parqueaderos -->
+      <a href="/comunidad" class="card-link">
+        <div class="card">
+          <img src="/images/icon-community.png" alt="Comunidad" class="card-icon">
+          <h3>Comunidad de Parqueaderos</h3>
+          <p>Comparte, arrienda o encuentra parqueaderos cerca de ti.</p>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+</body>
+</html>

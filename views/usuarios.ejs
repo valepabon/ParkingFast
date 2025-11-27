@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuarios Registrados</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>Usuarios Registrados</h1>
+  <ul>
+    <% usuarios.forEach(usuario => { %>
+      <li>
+        <strong><%= usuario.nombre %></strong> - 
+        <%= usuario.email %> - 
+        <%= usuario.rol %> - 
+        Conjunto: <%= usuario.conjunto?.nombre || 'N/A' %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

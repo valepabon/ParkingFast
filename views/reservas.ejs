@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservas | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="reservas-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar', { titulo: 'Reservas' }) %>
+
+  <main class="reservas-main">
+    <!-- Panel izquierdo -->
+    <section class="reservas-lista">
+      <h2>Mis Reservas</h2>
+      <div id="lista-reservas">
+        <% reservas.forEach(reserva => { %>
+          <div class="reserva-card <%= reserva.estado === 'activa' ? 'activa' : 'inactiva' %>">
+            <div class="reserva-icono">
+              <img src="/images/<%= reserva.estado === 'activa' ? 'check-green.png' : 'check-gray.png' %>" alt="<%= reserva.estado %>" />
+            </div>
+            <div class="reserva-info">
+              <h3><%= reserva.conjunto.nombre %></h3>
+              <p><%= new Date(reserva.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' }) %>, 
+                <%= reserva.horaInicio %> - <%= reserva.horaFin %></p>
+              <p class="placa"><%= reserva.placa %></p>
+            </div>
+            <% if (reserva.estado === 'activa') { %>
+              <div class="reserva-acciones">
+                <button class="btn-editar"
+                  data-id="<%= reserva._id %>"
+                  data-fecha="<%= reserva.fecha %>"
+                  data-horainicio="<%= reserva.horaInicio %>"
+                  data-horafin="<%= reserva.horaFin %>"
+                  data-placa="<%= reserva.placa %>"
+                  data-parqueadero="<%= reserva.parqueadero %>">✎</button>
+
+                <button class="btn-eliminar" onclick="confirmarEliminar('<%= reserva._id %>')">✖</button>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Panel derecho: Nueva reserva -->
+    <section class="reservas-nueva">
+      <h2>Crear Nueva Reserva</h2>
+      <form id="form-reserva" class="form-reserva">
+        <label>Parqueadero</label>
+        <select name="parqueadero" required>
+          <option value="">Seleccionar</option>
+          <option value="Visitante 1">Visitante 1</option>
+          <option value="Visitante 2">Visitante 2</option>
+          <option value="Visitante 3">Visitante 3</option>
+        </select>
+
+        <label>Fecha</label>
+        <input type="date" name="fecha" required>
+
+        <label>Hora Inicio</label>
+        <input type="time" name="horaInicio" required>
+
+        <label>Hora Fin</label>
+        <input type="time" name="horaFin" required>
+
+        <label>Placa</label>
+        <input type="text" name="placa" required>
+
+        <button type="submit" class="btn-aceptar">Reservar parqueadero</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- ✅ Modal edición -->
+  <div id="modal-editar" class="modal hidden">
+    <div class="modal-content">
+      <h3>Editar Reserva</h3>
+      <form id="form-editar">
+        <label>Parqueadero</label>
+        <select name="parqueadero" id="edit-parqueadero" required>
+          <option value="Visitante 1">Visitante 1</option>
+          <option value="Visitante 2">Visitante 2</option>
+          <option value="Visitante 3">Visitante 3</option>
+        </select>
+
+        <label>Fecha</label>
+        <input type="date" name="fecha" id="edit-fecha" required>
+
+        <div class="horarios">
+          <div>
+            <label>Hora Inicio</label>
+            <input type="time" name="horaInicio" id="edit-hora-inicio" required>
+          </div>
+          <div>
+            <label>Hora Fin</label>
+            <input type="time" name="horaFin" id="edit-hora-fin" required>
+          </div>
+        </div>
+
+        <label>Placa</label>
+        <input type="text" name="placa" id="edit-placa" required>
+
+        <div class="modal-buttons">
+          <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn-aceptar">Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ Popup éxito -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p id="popup-mensaje">¡Reserva completada con éxito!</p>
+      <div class="popup-buttons">
+        <button class="btn-aceptar" onclick="cerrarPopup()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Popup eliminar -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Estás seguro de eliminar esta reserva?</p>
+      <div class="popup-buttons">
+        <button class="btn-cancelar" onclick="cerrarEliminar()">Cancelar</button>
+        <button class="btn-aceptar" id="btn-confirmar-eliminar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const formReserva = document.getElementById("form-reserva");
+    const formEditar = document.getElementById("form-editar");
+    const modalEditar = document.getElementById("modal-editar");
+    const popup = document.getElementById("popup-exito");
+    const mensajePopup = document.getElementById("popup-mensaje");
+    const popupEliminar = document.getElementById("popup-eliminar");
+    let reservaIdEliminar = null;
+
+    // Crear reserva
+    formReserva.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(formReserva));
+
+      const res = await fetch("/reservas/crear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (json.exito) {
+        mensajePopup.textContent = "¡Reserva creada con éxito!";
+        popup.style.display = "flex";
+        formReserva.reset();
+        setTimeout(() => location.reload(), 1200);
+      } else {
+        alert(json.mensaje || "Error al crear.");
+      }
+    });
+
+    // Abrir modal editar
+    document.querySelectorAll(".btn-editar").forEach(btn => {
+      btn.addEventListener("click", () => {
+        formEditar.dataset.id = btn.dataset.id;
+        document.getElementById("edit-parqueadero").value = btn.dataset.parqueadero;
+        document.getElementById("edit-fecha").value = btn.dataset.fecha;
+        document.getElementById("edit-hora-inicio").value = btn.dataset.horainicio;
+        document.getElementById("edit-hora-fin").value = btn.dataset.horafin;
+        document.getElementById("edit-placa").value = btn.dataset.placa;
+        modalEditar.classList.remove("hidden");
+        modalEditar.classList.add("show");
+      });
+    });
+
+    // Editar reserva
+    formEditar.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = formEditar.dataset.id;
+      const data = Object.fromEntries(new FormData(formEditar));
+
+      const res = await fetch(`/reservas/editar/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (json.exito) {
+        modalEditar.classList.add("hidden");
+        mensajePopup.textContent = "¡Reserva actualizada!";
+        popup.style.display = "flex";
+        setTimeout(() => location.reload(), 1200);
+      } else {
+        alert(json.mensaje || "Error al actualizar.");
+      }
+    });
+
+    // Eliminar reserva
+    function confirmarEliminar(id) {
+      reservaIdEliminar = id;
+      popupEliminar.style.display = "flex";
+    }
+
+    function cerrarEliminar() {
+      popupEliminar.style.display = "none";
+      reservaIdEliminar = null;
+    }
+
+    document.getElementById("btn-confirmar-eliminar").onclick = async () => {
+      if (!reservaIdEliminar) return;
+      const res = await fetch(`/reservas/eliminar/${reservaIdEliminar}`, { method: "DELETE" });
+      const json = await res.json();
+      if (json.exito) {
+        mensajePopup.textContent = "¡Reserva eliminada!";
+        popupEliminar.style.display = "none";
+        popup.style.display = "flex";
+        setTimeout(() => location.reload(), 1200);
+      } else {
+        alert(json.mensaje || "Error al eliminar.");
+      }
+    };
+
+    function cerrarModal() {
+      modalEditar.classList.add("hidden");
+      modalEditar.classList.remove("show");
+    }
+
+    function cerrarPopup() {
+      popup.style.display = "none";
+    }
+  </script>
+</body>
+</html>
+

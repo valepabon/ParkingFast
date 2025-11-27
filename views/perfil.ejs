@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="perfil-body">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { titulo: 'Perfil', usuario }) %>
+
+  <main class="perfil-main">
+    <div class="perfil-container">
+
+      <!-- LADO IZQUIERDO -->
+      <aside class="perfil-left">
+        <div class="perfil-card">
+          <h3>PERFIL</h3>
+          <div class="perfil-icon">
+            <img src="/images/icon-user.png" alt="Usuario">
+          </div>
+          <button class="btn-foto">Cambiar la foto de perfil</button>
+        </div>
+
+        <div class="notificaciones">
+          <h3>NOTIFICACIONES</h3>
+          <div class="toggle">
+            <label>RESERVAS</label>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="toggle">
+            <label>PUBLICACIONES</label>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- LADO DERECHO -->
+      <section class="perfil-right">
+        <h2>DATOS PERSONALES</h2>
+
+        <!-- Formulario actualizado vía JavaScript (sin redirección) -->
+        <form id="perfil-form">
+          <label>Nombre Completo</label>
+          <input type="text" name="nombre" value="<%= usuario.nombre %>" required>
+
+          <label>Correo</label>
+          <input type="email" name="email" value="<%= usuario.email %>" required>
+
+          <label>Conjunto</label>
+          <input type="text" name="conjunto" value="<%= usuario.conjunto?.nombre || '' %>" placeholder="Nombre del conjunto">
+
+          <label>Torre/Bloque y Apartamento</label>
+          <input type="text" name="direccion" value="<%= usuario.direccion %>" required>
+
+          <label>Contraseña</label>
+          <input type="password" name="password" placeholder="••••••••">
+
+          <div class="perfil-buttons">
+            <button type="button" class="btn-cancelar" onclick="window.location.href='/inicio'">Cancelar</button>
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- POPUP DE ÉXITO -->
+  <div id="popup-exito" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p>Cambios guardados con éxito!</p>
+      <div class="popup-buttons">
+        <button id="popup-cerrar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP DE ERROR -->
+  <div id="popup-error" class="popup" style="display: none;">
+    <div class="popup-content error">
+      <p id="popup-error-msg">Hubo un error</p>
+      <div class="popup-buttons">
+        <button id="popup-error-cerrar" class="btn-cancelar">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const perfilForm = document.getElementById('perfil-form');
+    const popupExito = document.getElementById('popup-exito');
+    const popupCerrar = document.getElementById('popup-cerrar');
+    const popupError = document.getElementById('popup-error');
+    const popupErrorCerrar = document.getElementById('popup-error-cerrar');
+    const popupErrorMsg = document.getElementById('popup-error-msg');
+
+    perfilForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(perfilForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch('/usuarios/perfil', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.exito) {
+          popupExito.style.display = 'flex';
+        } else if (result.error) {
+          popupErrorMsg.textContent = result.error;
+          popupError.style.display = 'flex';
+        }
+      } catch (err) {
+        popupErrorMsg.textContent = 'Error al enviar datos.';
+        popupError.style.display = 'flex';
+      }
+    });
+
+    popupCerrar?.addEventListener('click', () => {
+      popupExito.style.display = 'none';
+    });
+
+    popupErrorCerrar?.addEventListener('click', () => {
+      popupError.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === popupExito) popupExito.style.display = 'none';
+      if (e.target === popupError) popupError.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
+

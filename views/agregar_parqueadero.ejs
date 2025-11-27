@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= modo === 'editar' ? 'Editar Parqueadero' : 'Agregar Parqueadero' %> | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar', { titulo }) %>
+
+
+  <main class="agregar-parqueadero-main">
+    <h2 class="titulo-admin"><%= modo === 'editar' ? 'Editar Parqueadero' : 'Agregar Parqueadero' %></h2>
+
+    <form class="form-agregar-parqueadero" id="form-parqueadero">
+      <!-- Tipo -->
+      <label for="tipo">Tipo</label>
+      <select id="tipo" name="tipo" required>
+        <option value="">Seleccionar</option>
+        <option value="residente" <%= parqueadero?.tipo === 'residente' ? 'selected' : '' %>>Residente</option>
+        <option value="visitante" <%= parqueadero?.tipo === 'visitante' ? 'selected' : '' %>>Visitante</option>
+        <option value="arrendado" <%= parqueadero?.tipo === 'arrendado' ? 'selected' : '' %>>Arrendado</option>
+      </select>
+
+      <!-- Asignado -->
+      <label for="asignado">Asignado a</label>
+      <input type="text" id="asignado" name="asignadoA" value="<%= parqueadero?.asignadoA || '' %>" />
+
+      <!-- Código -->
+      <label for="codigo">Código</label>
+      <input type="text" id="codigo" name="codigo" value="<%= parqueadero?.codigo || '' %>" required />
+
+      <!-- Ubicación -->
+      <label for="ubicacion">Ubicación</label>
+      <input type="text" id="ubicacion" name="ubicacion" value="<%= parqueadero?.ubicacion || '' %>" />
+
+      <!-- Costo -->
+      <label for="costo">Costo</label>
+      <input type="number" id="costo" name="costo" min="0" value="<%= parqueadero?.costo || 0 %>" />
+
+      <!-- Estado -->
+      <label for="estado">Estado</label>
+      <select id="estado" name="estado" required>
+        <option value="">Seleccionar</option>
+        <option value="disponible" <%= parqueadero?.estado === 'disponible' ? 'selected' : '' %>>Disponible</option>
+        <option value="ocupado" <%= parqueadero?.estado === 'ocupado' ? 'selected' : '' %>>Ocupado</option>
+        <option value="reservado" <%= parqueadero?.estado === 'reservado' ? 'selected' : '' %>>Reservado</option>
+      </select>
+
+      <div class="botones-form">
+        <button type="button" class="btn-cancelar" onclick="history.back()">Cancelar</button>
+        <button type="submit" class="btn-aceptar"><%= modo === 'editar' ? 'Guardar Cambios' : 'Agregar' %></button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Popup -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p><%= modo === 'editar' ? 'Cambios guardados' : 'Parqueadero agregado con éxito' %></p>
+      <div class="popup-buttons">
+        <button id="popup-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('form-parqueadero');
+    const popup = document.getElementById('popup-exito');
+    const btnAceptar = document.getElementById('popup-aceptar');
+
+    const esEdicion = "<%= modo === 'editar' %>";
+    const id = "<%= parqueadero?._id || '' %>";
+    const url = esEdicion === "true"
+      ? `/administracion/parqueaderos/editar/${id}`
+      : `/administracion/parqueaderos/agregar`;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        tipo: form.tipo.value,
+        asignadoA: form.asignadoA.value,
+        codigo: form.codigo.value,
+        ubicacion: form.ubicacion.value,
+        costo: form.costo.value,
+        estado: form.estado.value
+      };
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (json.exito) popup.style.display = 'flex';
+      else alert("❌ Error al guardar");
+    });
+
+    btnAceptar.addEventListener('click', () => {
+      window.location.href = "/administracion/parqueaderos";
+    });
+  </script>
+</body>
+</html>
+
+

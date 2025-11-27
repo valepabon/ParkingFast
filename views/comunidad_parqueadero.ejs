@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comunidad de Parqueaderos | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-body">
+  <!-- Navbar -->
+  <%- include('partials/navbar', { titulo: 'Comunidad' }) %>
+
+  <main class="admin-container">
+    <!-- Encabezado con botones alineados -->
+    <div class="encabezado-flex">
+      <div>
+        <h2 class="titulo-admin">Comunidad de Parqueaderos</h2>
+        <p class="subtitulo-admin">
+          Publica tu parqueadero disponible o encuentra uno para arrendar.
+        </p>
+      </div>
+      <div class="comunidad-botones">
+        <button class="btn-aceptar" id="btn-nueva">Nueva Publicación</button>
+        <button class="btn-secundario" id="btn-mis">Mis Publicaciones</button>
+      </div>
+    </div>
+
+    <!-- Listado de publicaciones -->
+    <section class="publicaciones-lista">
+      <% if (publicaciones.length === 0) { %>
+        <p>No hay publicaciones aún.</p>
+      <% } else { %>
+        <% publicaciones.forEach(pub => { %>
+          <div class="publicacion-card">
+            <div class="publicacion-img">
+              <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+            </div>
+            <div class="publicacion-info">
+              <h3><%= pub.descripcion %></h3>
+              <p><%= pub.tipoParqueadero %> para <%= pub.tipoVehiculo %></p>
+              <p><strong>$<%= pub.precio %></strong> / Mes</p>
+              <p>Disponible desde: <strong><%= new Date(pub.fechaDisponible).toLocaleDateString() %></strong></p>
+            </div>
+            <div class="publicacion-detalles">
+              <div class="detalle">
+                <span class="texto-detalle"><%= pub.conjunto %></span>
+              </div>
+              <div class="detalle">
+                <i class="fa-solid fa-phone"></i>
+                <button class="btn-telefono"><%= pub.telefono %></button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('btn-nueva').addEventListener('click', () => {
+      window.location.href = '/comunidad/agregar';
+    });
+
+    document.getElementById('btn-mis').addEventListener('click', () => {
+      window.location.href = '/comunidad/mis-publicaciones';
+    });
+  </script>
+</body>
+</html>
+

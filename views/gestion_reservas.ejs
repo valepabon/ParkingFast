@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Reservas | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar', { titulo: "Gestión Reservas" }) %>
+
+  <main class="reservas-admin-main">
+    <h2 class="titulo-admin">Gestión de Reservas</h2>
+    <p class="subtitulo-admin">Administra las reservas de parqueaderos de visitantes.</p>
+
+    <!-- Tabla -->
+    <section class="tabla-container">
+      <table class="tabla-reservas">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Parqueadero</th>
+            <th>Placa</th>
+            <th>Fecha</th>
+            <th>Horario</th> <!-- ✅ Nueva columna -->
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% reservas.forEach(r => { %>
+            <tr>
+              <td><%= r.codigo %></td>
+              <td><%= r.parqueadero %></td>
+              <td><%= r.placa %></td>
+              <td><%= r.fecha %></td>
+              <td><%= r.horaInicio %> - <%= r.horaFin %></td> <!-- ✅ Mostrar horario -->
+              <td>
+                <span class="estado <%= r.estado %>">
+                  <%= r.estado.charAt(0).toUpperCase() + r.estado.slice(1) %>
+                </span>
+              </td>
+              <td>
+                <% if (r.estado !== "cerrada" && r.estado !== "cancelada") { %>
+                  <button class="btn-accion cerrar" onclick="confirmarAccion('<%= r._id %>', 'cerrar')">✔</button>
+                  <button class="btn-accion cancelar" onclick="confirmarAccion('<%= r._id %>', 'cancelar')">✖</button>
+                <% } else { %>
+                  <span class="texto-detalle">Sin acciones</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- POPUP CONFIRMACIÓN -->
+  <div id="popup-confirmar" class="popup">
+    <div class="popup-content">
+      <p id="pregunta"></p>
+      <div class="popup-buttons">
+        <button class="btn-cancelar" onclick="cerrarConfirmacion()">Cancelar</button>
+        <button id="btn-aceptar" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP ÉXITO -->
+  <div id="popup-exito" class="popup">
+    <div class="popup-content">
+      <p id="mensaje-exito"></p>
+      <div class="popup-buttons">
+        <button class="btn-aceptar" onclick="cerrarExito()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let reservaId = null;
+    let accion = "";
+
+    function confirmarAccion(id, tipo) {
+      reservaId = id;
+      accion = tipo;
+
+      document.getElementById("pregunta").textContent =
+        tipo === "cerrar"
+          ? "¿Desea cerrar esta reservación?"
+          : "¿Desea cancelar esta reservación?";
+
+      document.getElementById("popup-confirmar").style.display = "flex";
+    }
+
+    function cerrarConfirmacion() {
+      document.getElementById("popup-confirmar").style.display = "none";
+    }
+
+    async function procesarAccion() {
+      const res = await fetch(`/administracion/reservas/${accion}/${reservaId}`, {
+        method: "PUT"
+      });
+
+      const json = await res.json();
+
+      if (json.exito) {
+        document.getElementById("mensaje-exito").textContent = json.mensaje;
+        document.getElementById("popup-exito").style.display = "flex";
+      } else {
+        alert("Error: " + (json.mensaje || "No se pudo procesar la acción."));
+      }
+    }
+
+    document.getElementById("btn-aceptar").onclick = () => {
+      document.getElementById("popup-confirmar").style.display = "none";
+      procesarAccion();
+    };
+
+    function cerrarExito() {
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>

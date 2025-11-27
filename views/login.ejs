@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo">
+        <img src="/images/logo.png" alt="ConectaPark Logo">
+        <h1>ConectaPark</h1>
+      </div>
+      <h2>INICIAR SESIÓN</h2>
+
+      <form action="/login" method="POST">
+
+        <label for="correo">Email</label>
+        <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <button type="submit" class="btn-login">
+
+            Iniciar Sesión
+          </button>
+
+        <div class="register-link">
+          <p>¿Aún no tienes cuenta? <a href="/signup" class="btn-register">Regístrate</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

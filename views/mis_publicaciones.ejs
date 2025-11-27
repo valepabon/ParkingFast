@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis Publicaciones | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar', { titulo: 'Mis Publicaciones' }) %>
+
+  <main class="admin-container">
+    <!-- Encabezado con botones a la derecha -->
+    <div class="encabezado-flex">
+      <div>
+        <h2 class="titulo-admin">Mis Publicaciones</h2>
+        <p class="subtitulo-admin">
+          Gestiona tus parqueaderos publicados: edita la información o elimina los que ya no estén disponibles.
+        </p>
+      </div>
+      <div class="comunidad-botones">
+        <button class="btn-aceptar" id="btn-nueva">Nueva Publicación</button>
+        <button class="btn-secundario" id="btn-ver">Ver Comunidad</button>
+      </div>
+    </div>
+
+    <!-- Listado de publicaciones -->
+    <section class="publicaciones-lista">
+      <% if (publicaciones.length === 0) { %>
+        <p>No tienes publicaciones aún.</p>
+      <% } else { %>
+        <% publicaciones.forEach(pub => { %>
+          <div class="publicacion-card" data-id="<%= pub._id %>">
+            <div class="publicacion-img">
+              <img src="/images/icon-parking-placeholder.png" alt="Parqueadero" />
+            </div>
+            <div class="publicacion-info">
+              <h3><%= pub.descripcion %></h3>
+              <p>Tipo: <%= pub.tipoParqueadero %> - <%= pub.tipoVehiculo %></p>
+              <p><strong>$<%= pub.precio.toLocaleString() %></strong> / mes</p>
+              <p>Disponible desde: <strong><%= new Date(pub.fechaDisponible).toLocaleDateString() %></strong></p>
+            </div>
+            <div class="publicacion-detalles">
+              <div class="detalle">
+                <span class="texto-detalle"><%= pub.conjunto %></span>
+              </div>
+              <div class="acciones-publicacion">
+                <button class="btn-accion editar">✎</button>
+                <button class="btn-accion cancelar eliminar">✖</button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </section>
+  </main>
+
+  <!-- Popup de confirmación -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Estás seguro de eliminar esta publicación?</p>
+      <div class="popup-buttons">
+        <button class="btn-cancelar" id="cancelar-eliminar">Cancelar</button>
+        <button class="btn-aceptar" id="confirmar-eliminar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let idEliminar = null;
+
+    // Botón eliminar
+    document.querySelectorAll('.eliminar').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.publicacion-card');
+        idEliminar = card.getAttribute('data-id');
+        document.getElementById('popup-eliminar').style.display = 'flex';
+      });
+    });
+
+    document.getElementById('cancelar-eliminar').addEventListener('click', () => {
+      document.getElementById('popup-eliminar').style.display = 'none';
+      idEliminar = null;
+    });
+
+    document.getElementById('confirmar-eliminar').addEventListener('click', async () => {
+      if (!idEliminar) return;
+      try {
+        const res = await fetch(`/comunidad/eliminar/${idEliminar}`, {
+          method: 'DELETE'
+        });
+        const json = await res.json();
+        if (json.exito) {
+          location.reload();
+        } else {
+          alert("❌ Error eliminando publicación.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("❌ Error del servidor.");
+      }
+    });
+
+    // Botones
+    document.getElementById('btn-nueva').addEventListener('click', () => {
+      window.location.href = '/comunidad/agregar';
+    });
+
+    document.getElementById('btn-ver').addEventListener('click', () => {
+      window.location.href = '/comunidad';
+    });
+
+    // Botón editar
+    document.querySelectorAll('.editar').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.publicacion-card');
+        const id = card.getAttribute('data-id');
+        window.location.href = `/comunidad/editar/${id}`;
+      });
+    });
+  </script>
+</body>
+</html>
+
+  
+
+
+
+
+
+    

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventario de Parqueaderos | ConectaPark</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="admin-body">
+  <%- include('partials/navbar', { titulo }) %>
+
+  <main class="parqueaderos-main">
+    <h2 class="titulo-admin">Inventario de Parqueaderos</h2>
+    <p class="subtitulo-admin">Administra el listado completo de parqueaderos del conjunto residencial.</p>
+
+    <!-- Tarjetas resumen -->
+    <div class="resumen-parqueaderos">
+      <button class="resumen total">Total <span><%= parqueaderos.length %></span></button>
+      <button class="resumen disponibles">Disponibles <span><%= parqueaderos.filter(p => p.estado === 'disponible').length %></span></button>
+      <button class="resumen reservados">Reservados <span><%= parqueaderos.filter(p => p.estado === 'reservado').length %></span></button>
+      <button class="resumen ocupados">Ocupados <span><%= parqueaderos.filter(p => p.estado === 'ocupado').length %></span></button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros-parqueaderos">
+      <select id="filtro-tipo">
+        <option value="">Tipo</option>
+        <option value="residente">Residente</option>
+        <option value="visitante">Visitante</option>
+        <option value="arrendado">Arrendado</option>
+      </select>
+
+      <select id="filtro-estado">
+        <option value="">Estado</option>
+        <option value="disponible">Disponible</option>
+        <option value="ocupado">Ocupado</option>
+        <option value="reservado">Reservado</option>
+      </select>
+
+      <button class="btn-agregar" onclick="window.location.href='/administracion/parqueaderos/agregar'">Agregar Parqueadero</button>
+    </div>
+
+    <!-- Tabla -->
+    <section class="tabla-container">
+      <table class="tabla-reservas">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Asignado a</th>
+            <th>Costo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% parqueaderos.forEach(p => { %>
+            <tr data-id="<%= p._id %>">
+              <td><%= p.codigo %></td>
+              <td><%= p.tipo %></td>
+              <td>
+                <% if (p.estado === "disponible") { %>
+                  <span class="estado disponible">🟢 Disponible</span>
+                <% } else if (p.estado === "ocupado") { %>
+                  <span class="estado ocupado">🔴 Ocupado</span>
+                <% } else { %>
+                  <span class="estado reservado">🟡 Reservado</span>
+                <% } %>
+              </td>
+              <td><%= p.asignadoA || "-" %></td>
+              <td>$<%= p.costo.toLocaleString() %></td>
+              <td>
+                <button class="btn-accion editar" onclick="editarParqueadero('<%= p._id %>')">✎</button>
+                <button class="btn-accion cancelar eliminar" data-id="<%= p._id %>">✖</button>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Popup eliminar -->
+  <div id="popup-eliminar" class="popup">
+    <div class="popup-content">
+      <p>¿Está seguro de eliminar el parqueadero?</p>
+      <div class="popup-buttons">
+        <button id="cancelar-popup" class="btn-cancelar">Cancelar</button>
+        <button id="aceptar-popup" class="btn-aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let idEliminar = null;
+
+    document.querySelectorAll('.eliminar').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        idEliminar = e.target.getAttribute("data-id");
+        document.getElementById('popup-eliminar').style.display = 'flex';
+      });
+    });
+
+    document.getElementById('cancelar-popup').addEventListener('click', () => {
+      document.getElementById('popup-eliminar').style.display = 'none';
+      idEliminar = null;
+    });
+
+    document.getElementById('aceptar-popup').addEventListener('click', async () => {
+      if (!idEliminar) return;
+      try {
+        const res = await fetch(`/administracion/parqueaderos/eliminar/${idEliminar}`, { method: 'DELETE' });
+        const json = await res.json();
+        if (json.exito) {
+          location.reload();
+        } else {
+          alert('Error al eliminar');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error del servidor');
+      }
+    });
+
+    function editarParqueadero(id) {
+      window.location.href = `/administracion/parqueaderos/editar/${id}`;
+    }
+  </script>
+</body>
+</html>

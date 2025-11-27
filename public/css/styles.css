@@ -1,0 +1,2034 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin-top: 100px;
+  }
+
+.home-body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #0b2c61, #13a085);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.home-container {
+  text-align: center;
+}
+
+.app-name {
+  color: #ffeb3b;
+  font-weight: bold;
+}
+
+.btn-home {
+  background-color: #ffeb3b;
+  color: #0b2c61;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-home:hover {
+  background-color: #e5d500;
+}
+
+  
+/* ---------- Fondo general del login ---------- */
+.login-body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: url("/images/bg-parking.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* ---------- Tarjeta del login ---------- */
+  .login-card {
+    background-color: #0b2c61; /* azul oscuro */
+    color: white;
+    border-radius: 10px;
+    width: 350px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .logo img {
+    width: 50px;
+  }
+  
+  .logo h1 {
+    color: #9fdc00; /* verde lima */
+    font-size: 22px;
+    margin-top: 5px;
+  }
+  
+  /* ---------- Título ---------- */
+  .login-card h2 {
+    color: #ffeb3b; /* amarillo */
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* ---------- Inputs ---------- */
+  .login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .login-card label {
+    text-align: left;
+    font-size: 13px;
+    color: #ffeb3b;
+    margin-top: 5px;
+  }
+  
+  .login-card input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  /* ---------- Botón principal ---------- */
+  .btn-login {
+    background-color: #ffeb3b;
+    color: #0b2c61;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-login:hover {
+    background-color: #e5d500;
+  }
+  
+  /* ---------- Registro ---------- */
+  .register-link {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  
+  .btn-register {
+    background-color: transparent;
+    color: #9fdc00;
+    border: 1px solid #9fdc00;
+    border-radius: 4px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .btn-register:hover {
+    background-color: #9fdc00;
+    color: #0b2c61;
+  }
+  
+/* ---------- SIGNUP (Registro) ---------- */
+.signup-body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .signup-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Columna izquierda (imagen/mapa) */
+  .signup-left {
+    flex: 1;
+    background: url("/images/map-bg.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  
+  .logo-signup {
+    width: 130px;
+    opacity: 0.9;
+  }
+  
+  /* Columna derecha (formulario) */
+  .signup-form {
+    flex: 0.5;
+    background-color: #0b2c61;
+    color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .signup-form h2 {
+    color: #ffeb3b;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .signup-form label {
+    color: #ffeb3b;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .signup-form input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .btn-signup {
+    background-color: #ffeb3b;
+    color: #0b2c61;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-signup:hover {
+    background-color: #e5d500;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  
+  .btn-login-small {
+    background-color: transparent;
+    color: #9fdc00;
+    border: 1px solid #9fdc00;
+    border-radius: 4px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .btn-login-small:hover {
+    background-color: #9fdc00;
+    color: #0b2c61;
+  }
+/* ============================
+   INICIO - DASHBOARD
+============================ */
+.inicio-body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: url("/images/bg-parking.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #0b2c61;
+  }
+  
+  /* Barra de navegación */
+  .navbar {
+    background-color: #0b2c61;
+    color: #fff;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-left, .nav-right {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-left a, .nav-right a {
+    text-decoration: none;
+    color: #b6ff00;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .nav-left a:hover, .nav-right a:hover {
+    color: #ffeb3b;
+  }
+  
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav-logo img {
+    width: 40px;
+  }
+  
+  .nav-logo span {
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .logout-btn {
+    font-size: 22px;
+    color: #b6ff00;
+    text-decoration: none;
+  }
+  
+  /* Contenido principal */
+  .inicio-main {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .inicio-main h1 {
+    font-size: 2rem;
+    color: #0b2c61;
+  }
+  
+  .usuario {
+    color: #ffeb3b;
+  }
+  
+  /* Tarjetas */
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    width: 260px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-icon {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .card h3 {
+    color: #0b2c61;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    color: #333;
+  }
+  /* ============================
+   PERFIL DE USUARIO
+============================ */
+.perfil-body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: url("/images/bg-parking.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #0b2c61;
+  }
+  
+  .perfil-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px 80px;
+  }
+  
+  /* Lado izquierdo */
+  .perfil-left {
+    background-color: #fffbea;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .perfil-card {
+    text-align: center;
+    background-color: #fff1a1;
+    border: 2px solid #0b2c61;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .perfil-card h3 {
+    color: #0b2c61;
+  }
+  
+  .perfil-icon img {
+    width: 100px;
+    margin: 15px 0;
+  }
+  
+  .btn-foto {
+    background-color: #ffeb3b;
+    color: #0b2c61;
+    border: 1px solid #0b2c61;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .btn-foto:hover {
+    background-color: #e5d500;
+  }
+  
+  /* Notificaciones */
+  .notificaciones {
+    margin-top: 30px;
+    width: 100%;
+  }
+  
+  .notificaciones h3 {
+    color: #0b2c61;
+    text-align: center;
+  }
+  
+  .toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff1a1;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin: 10px 0;
+  }
+  
+  /* Switch personalizado */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 22px;
+  }
+  
+  .switch input { display: none; }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 34px;
+    top: 0; left: 0; right: 0; bottom: 0;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #0b2c61;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(22px);
+  }
+  
+  /* Lado derecho */
+  .perfil-right {
+    flex: 1;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 700px;
+  }
+  
+  .perfil-right h2 {
+    color: #0b2c61;
+    margin-bottom: 20px;
+  }
+  
+  .perfil-right form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .perfil-right label {
+    font-weight: bold;
+    color: #0b2c61;
+    font-size: 13px;
+  }
+  
+  .perfil-right input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* Botones */
+  .perfil-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .btn-cancelar {
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-cancelar:hover {
+    background-color: #c62828;
+  }
+  
+  .btn-guardar {
+    background-color: #0b2c61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-guardar:hover {
+    background-color: #09244d;
+  }
+/* ============================
+   RESERVAS
+============================ */
+.reservas-body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: url("/images/bg-parking.jpg") no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .reservas-main {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px 80px;
+  }
+  
+  /* Panel izquierdo */
+  .reservas-lista {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .reservas-lista h2 {
+    text-align: center;
+    color: #0b2c61;
+    margin-bottom: 25px;
+  }
+  
+  .reserva-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #b6c0d4;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background-color: #f7f9fc;
+  }
+  
+  .reserva-card.activa {
+    border-color: #c2f53c;
+  }
+  
+  .reserva-card.inactiva {
+    opacity: 0.8;
+  }
+  
+  .reserva-icono img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .reserva-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #0b2c61;
+  }
+  
+  .reserva-info p {
+    margin: 3px 0;
+    font-size: 13px;
+    color: #333;
+  }
+  
+  .reserva-info .placa {
+    font-weight: bold;
+  }
+  
+  .reserva-acciones {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .btn-editar,
+  .btn-eliminar {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-editar {
+    color: #0b2c61;
+  }
+  
+  .btn-eliminar {
+    color: #e74c3c;
+  }
+  
+  /* Panel derecho */
+  .reservas-nueva {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 450px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .reservas-nueva h2 {
+    text-align: center;
+    color: #0b2c61;
+    margin-bottom: 25px;
+  }
+  
+  .reservas-nueva form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .reservas-nueva label {
+    font-weight: bold;
+    color: #0b2c61;
+    font-size: 14px;
+  }
+  
+  .reservas-nueva input,
+  .reservas-nueva select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+  }
+  
+  .horarios {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  
+  .btn-reservar {
+    background-color: #0b2c61;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-reservar:hover {
+    background-color: #093258;
+  }
+
+  /* Hace que toda la tarjeta sea clickeable */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .card-link .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .card-link .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+/* ============================
+   MODAL EDITAR RESERVA
+============================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 25px 35px;
+    border-radius: 10px;
+    width: 420px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .modal-content h3 {
+    text-align: center;
+    color: #0b2c61;
+    margin-bottom: 15px;
+  }
+  
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .modal-content label {
+    font-weight: bold;
+    color: #0b2c61;
+    font-size: 14px;
+  }
+  
+  .modal-content input,
+  .modal-content select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .horarios {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .btn-cancelar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-aceptar {
+    background: #0b2c61;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-cancelar:hover { background: #c0392b; }
+  .btn-aceptar:hover { background: #093258; }
+
+
+/* ============================
+   POPUPS DE CONFIRMACIÓN / ÉXITO
+============================ */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 15;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 25px 40px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    min-width: 340px;
+  }
+  
+  .popup-content p {
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .btn-aceptar,
+  .btn-cancelar {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 18px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    transition: 0.3s;
+  }
+  
+  .btn-aceptar {
+    background: #0b2c61;
+  }
+  
+  .btn-cancelar {
+    background: #e74c3c;
+  }
+  
+  .btn-aceptar:hover { background: #092a55; }
+  .btn-cancelar:hover { background: #c0392b; }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================
+   POPUP DE ÉXITO PERFIL
+============================ */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 25px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+    min-width: 340px;
+  }
+  
+  .popup-content p {
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn-aceptar {
+    background: #0b2c61;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-aceptar:hover {
+    background: #092a55;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+/* ============================
+   ADMINISTRACIÓN
+============================ */
+.admin-body {
+    margin: 0;
+    background: url('/images/bg-city-parking.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .admin-main {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .titulo-admin {
+    font-size: 2rem;
+    color: #0b2c61;
+    margin-bottom: 40px;
+    font-weight: bold;
+  }
+  
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 260px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .card-icon {
+    width: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .card h3 {
+    color: #0b2c61;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  /* --- Gestión de Reservas --- */
+.reservas-admin-main {
+    text-align: center;
+    padding: 50px 20px;
+    color: #0b2c61;
+  }
+  
+  .titulo-admin {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .subtitulo-admin {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  
+  .filtros-reservas {
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .filtros-reservas .filtro {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .filtro.activo { background-color: #3baf74; }
+  .filtro.confirmadas { background-color: #4caf50; }
+  .filtro.pendientes { background-color: #ffcc00; color: #333; }
+  .filtro.canceladas { background-color: #e57373; }
+  .filtro.cerradas { background-color: #666; }
+  
+  .tabla-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tabla-reservas {
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .tabla-reservas th, .tabla-reservas td {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .tabla-reservas thead {
+    background-color: #e8e6a9;
+    color: #0b2c61;
+  }
+  
+  .estado {
+    font-weight: 600;
+  }
+  
+  .estado.confirmada { color: #4caf50; }
+  .estado.pendiente { color: #ffcc00; }
+  .estado.activa { color: #3baf74; }
+  
+  .btn-accion {
+    border: none;
+    cursor: pointer;
+    background: none;
+    font-size: 1.2rem;
+  }
+  
+  .btn-accion.aceptar { color: #3baf74; }
+  .btn-accion.rechazar { color: #d9534f; }
+  
+  .popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 25px 40px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 15px;
+  }
+  
+  .btn-cancelar, .btn-aceptar {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-cancelar { background-color: #e57373; color: white; }
+  .btn-aceptar { background-color: #0b2c61; color: white; }
+  /* === BOTONES DE ACCIÓN (✔ Cerrar / ✖ Cancelar) === */
+
+.btn-accion {
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    margin: 0 6px;
+  }
+  
+  /* ✔ Botón Cerrar (Verde) */
+  .btn-accion.cerrar {
+    color: #3baf74; /* verde */
+  }
+  
+  .btn-accion.cerrar:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  
+  /* ✖ Botón Cancelar (Rojo) */
+  .btn-accion.cancelar {
+    color: #e57373; /* rojo */
+  }
+  
+  .btn-accion.cancelar:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  
+  /* Estado deshabilitado (por si en un futuro se requiere) */
+  .btn-accion:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+/* === Inventario de Parqueaderos === */
+.parqueaderos-main {
+    text-align: center;
+    padding: 50px 20px;
+    color: #0b2c61;
+  }
+  
+  .resumen-parqueaderos {
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .resumen {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  
+  .resumen span {
+    margin-left: 8px;
+    font-weight: 700;
+  }
+  
+  .resumen.total { background-color: #3baf74; }
+  .resumen.disponibles { background-color: #4caf50; }
+  .resumen.reservados { background-color: #ffcc00; color: #333; }
+  .resumen.ocupados { background-color: #e57373; }
+  
+  .filtros-parqueaderos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .filtros-parqueaderos select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+  }
+  
+  .btn-agregar {
+    background-color: #0b2c61;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  
+  .btn-agregar:hover {
+    opacity: 0.8;
+  }
+  
+  /* Estados */
+  .estado.disponible { color: #4caf50; font-weight: 600; }
+  .estado.ocupado { color: #e57373; font-weight: 600; }
+  .estado.reservado { color: #ffcc00; font-weight: 600; }
+  
+  /* Acciones */
+  /* === Botones de acción en Inventario de Parqueaderos === */
+
+.btn-accion {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+    /* ✔ Botón Editar (Azul) */
+    .btn-accion.editar {
+        color: #0b2c61; /* azul institucional */
+      }
+      
+      .btn-accion.editar:hover {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+      
+      /* ✖ Botón Cancelar (Rojo) */
+      .btn-accion.editar {
+        color: #0b2c61; /* azul */
+      }
+      
+      .btn-accion.editar:hover {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+
+
+/* === Formulario Agregar Parqueadero === */
+.agregar-parqueadero-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding: 40px 20px;
+    color: #0b2c61;
+  }
+  
+  .form-agregar-parqueadero {
+    background: rgba(255,255,255,0.9);
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-agregar-parqueadero label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .form-agregar-parqueadero input,
+  .form-agregar-parqueadero select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .botones-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  /* === Reglas del Conjunto === */
+.reglas-main {
+    text-align: left;
+    padding: 40px 20px;
+    color: #0b2c61;
+  }
+  
+  .contenedor-boton-agregar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+    margin-right: 10%;
+  }
+  
+  .lista-reglas {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .regla-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+  }
+  
+  .regla-icono img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .regla-info {
+    flex: 1;
+    margin-left: 15px;
+  }
+  
+  .regla-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  
+  .regla-info p {
+    margin: 3px 0;
+  }
+  
+  .regla-acciones {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* === Formulario Agregar Regla === */
+.agregar-regla-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding: 40px 20px;
+    color: #0b2c61;
+  }
+  
+  .form-agregar-regla {
+    background: rgba(255,255,255,0.9);
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-agregar-regla label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .form-agregar-regla input,
+  .form-agregar-regla select,
+  .form-agregar-regla textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .botones-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  /* === Comunidad de Parqueaderos === */
+.comunidad-main {
+    text-align: left;
+    padding: 40px 20px;
+    color: #0b2c61;
+  }
+  
+  .comunidad-botones {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: flex-end;
+    margin-right: 10%;
+  }
+  
+  .btn-secundario {
+    background-color: #fff;
+    color: #0b2c61;
+    border: 1.5px solid #0b2c61;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .btn-secundario:hover {
+    background-color: #0b2c61;
+    color: #fff;
+  }
+  
+  .publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+  
+  .publicacion-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  
+  .publicacion-img img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+  }
+  
+  .publicacion-info {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .publicacion-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  
+  .publicacion-info p {
+    margin: 3px 0;
+  }
+  
+  /* === Comunidad de Parqueaderos - Detalles Refinados === */
+  .publicacion-detalles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .detalle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #0b2c61;
+    font-weight: 500;
+  }
+  
+  .indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .indicador.verde {
+    background-color: #4caf50; /* cubierto */
+  }
+  
+  .indicador.amarillo {
+    background-color: #ffcc00; /* descubierto */
+  }
+  
+  .texto-detalle {
+    font-weight: 600;
+  }
+  
+  .btn-telefono {
+    border: 1.5px solid #0b2c61;
+    background-color: transparent;
+    color: #0b2c61;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .btn-telefono:hover {
+    background-color: #0b2c61;
+    color: #fff;
+  }
+  
+  .fa-car, .fa-motorcycle {
+    font-size: 1rem;
+    color: #0b2c61;
+  }
+  
+
+
+/* === Mis Publicaciones === */
+.acciones-publicacion {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  
+  .btn-editar, .btn-eliminar {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .btn-editar i {
+    color: #0b2c61;
+  }
+  
+  .btn-eliminar i {
+    color: #d9534f;
+  }
+  
+  .btn-editar:hover, .btn-eliminar:hover {
+    transform: scale(1.2);
+  }
+  /* --- Formulario Nueva Publicación --- */
+.formulario-publicacion {
+    width: 80%;
+    max-width: 900px;
+    margin: 40px auto;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .form-fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .form-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-grupo label {
+    font-weight: 600;
+    color: #0b2c61;
+    margin-bottom: 5px;
+  }
+  
+  .form-grupo input,
+  .form-grupo select {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-grupo input:focus,
+  .form-grupo select:focus {
+    border-color: #0b2c61;
+    outline: none;
+    box-shadow: 0 0 3px rgba(11, 44, 97, 0.3);
+  }
+  
+  .form-botones {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+  }
+  
+  .btn-cancelar,
+  .btn-aceptar {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-cancelar {
+    background-color: #e57373;
+    color: #fff;
+  }
+  
+  .btn-cancelar:hover {
+    background-color: #d9534f;
+  }
+  
+  .btn-aceptar {
+    background-color: #0b2c61;
+    color: #fff;
+  }
+  
+  .btn-aceptar:hover {
+    background-color: #0a2453;
+  }
+  
+  /* Popup general (reutilizable) */
+  .popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background: #fff;
+    padding: 25px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+  }
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    min-width: 350px;
+    max-width: 500px;
+    animation: slideDown 0.4s ease;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; right: 0; bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(10, 10, 10, 0.5);
+  }
+  
+  .popup .popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup.show {
+    display: flex;
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease;
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .comunidad-contenedor {
+    background: #ffffffee;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comunidad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .comunidad-botones {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .titulo-admin {
+    font-size: 2rem;
+    color: #0c2d64;
+    margin: 0;
+  }
+  
+  .subtitulo-admin {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.5rem 0 0;
+  }
+  
+  .sin-publicaciones {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 2rem;
+  }
+  .admin-container {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  }
+  
+  .admin-header {
+    margin-bottom: 2rem;
+  }
+  
+  .publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .publicacion-card {
+    display: flex;
+    flex-wrap: wrap;
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  }
+  .admin-container {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 1100px; /* MÁS ANCHO */
+    margin: 2rem auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  }
+  
+  .encabezado-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .titulo-admin {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #112b5c;
+    margin-bottom: 0.4rem;
+  }
+  
+  .subtitulo-admin {
+    color: #333;
+    margin-bottom: 0;
+  }
+  
+  .comunidad-botones {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .encabezado-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
+  
+  .encabezado-flex > div:first-child {
+    flex-grow: 1;
+    min-width: 0;
+  }
+  
+  .comunidad-botones {
+    display: flex;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+  
+  .admin-container {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  }
+  .form-publicacion-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 960px;
+    margin: 3rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .form-publicacion-container .form-titulo {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #002a5c;
+  }
+  
+  .formulario-publicacion .form-fila {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .formulario-publicacion .form-grupo {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .formulario-publicacion label {
+    font-weight: bold;
+    color: #002a5c;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  
+  .formulario-publicacion input,
+  .formulario-publicacion select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .precio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .precio-wrapper span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .form-botones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  /* Contenedor general para reglas */
+.contenedor-reglas {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 30px;
+  background: #fefefe;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Tarjeta individual */
+.regla-card {
+  display: flex;
+  align-items: flex-start;
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  gap: 20px;
+}
+
+.regla-icono img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Información de la regla */
+.regla-info {
+  flex: 1;
+}
+
+.regla-info h3 {
+  margin: 0;
+  font-size: 1.3em;
+  color: #0b2a57;
+}
+
+.regla-info p {
+  margin: 5px 0;
+  font-size: 0.95em;
+  color: #333;
+}
+
+/* Acciones */
+.regla-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.btn-accion {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.btn-accion.cancelar {
+  color: #e74c3c;
+}
+
+.btn-accion.editar {
+  color: #0b2a57;
+}
+
+/* Botón Agregar Nueva */
+.encabezado-reglas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.encabezado-reglas .btn-aceptar {
+  padding: 10px 20px;
+  font-size: 0.95em;
+}
