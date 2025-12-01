@@ -38,7 +38,7 @@ conecta-park/
 │
 └── docs/
     └── PRUEBAS.md     # Documentación de pruebas
-
+```
 ---
 
 ## 🛠️ Tecnologías utilizadas
