@@ -154,7 +154,7 @@ Rutas probadas:
 
 ```bash
 npm install
-
+```
 2. Ejecutar solo pruebas unitarias:
 ```bash
 npm run test:unit
