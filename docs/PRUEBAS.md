@@ -192,10 +192,12 @@ En cada archivo `.spec.js`, los tests de integración ejecutan los sguiente para
 ```js
 await Usuario.deleteMany({});
 await Reserva.deleteMany({});
+```
+---
+---
 
 ## ✅ Resultados del Último Test
 
----
 
 ### 🧪 comunidadRoutes (integración)
 - ✔ **POST** `/comunidad/agregar` → debe crear una publicación  
