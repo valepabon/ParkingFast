@@ -2,9 +2,11 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 import express from 'express';
+import session from 'express-session';
 import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import { expect } from 'chai';
 
 import usuarioRoutes from '../../routes/usuarioRoutes.js';
 import { connectDatabase } from '../../config/database.js';
@@ -21,6 +23,7 @@ describe('usuarioRoutes (integración)', function () {
   let app;
 
   before(async () => {
+    // Mongo en memoria
     mongod = await MongoMemoryServer.create();
     const uri = new URL(mongod.getUri());
 
@@ -30,20 +33,34 @@ describe('usuarioRoutes (integración)', function () {
 
     await connectDatabase();
 
+    // Asegurar que el conjunto Los Tulipanes existe (NO se borra)
     await Conjunto.findOneAndUpdate(
       { nombre: 'Los Tulipanes' },
       { nombre: 'Los Tulipanes', ciudad: 'Bogotá', direccion: 'Cra 1 # 23-45' },
       { upsert: true, new: true }
     );
-    
-
-    
 
     app = express();
     app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+
+    // Sesión simulada (si se usa en /usuarios/perfil)
+    app.use(
+      session({
+        secret: 'test-secret',
+        resave: false,
+        saveUninitialized: false,
+      })
+    );
+
     app.set('view engine', 'ejs');
     app.set('views', path.join(PROJECT_ROOT, 'views'));
     app.use('/usuarios', usuarioRoutes);
+  });
+
+  beforeEach(async () => {
+    // Limpiar solo usuarios antes de cada prueba
+    await Usuario.deleteMany({});
   });
 
   after(async () => {
@@ -57,26 +74,34 @@ describe('usuarioRoutes (integración)', function () {
       .type('form')
       .send({
         nombre: 'TestUser',
-        correo: 'test12345678@correo.com',
+        correo: 'test1222345678@correo.com',
         password: '123456',
         confirmar: '123456',
         direccion: 'Torre 4 Apto 201',
         conjunto: 'Los Tulipanes'
       });
 
-    if (res.status !== 302) throw new Error('❌ No redirigió al crear usuario');
+    expect(res.status).to.equal(302);
+    expect(res.header.location).to.equal('/login');
 
-    const usuario = await Usuario.findOne({ email: 'test@correo.com' });
-    if (!usuario) throw new Error('❌ Usuario no creado en la base de datos');
+    const usuario = await Usuario.findOne({ email: 'test1222345678@correo.com' });
+    expect(usuario).to.exist;
+    expect(usuario.nombre).to.equal('TestUser');
   });
 
   it('GET /usuarios → debe mostrar lista de usuarios', async () => {
-    const res = await request(app).get('/usuarios');
-    if (res.status !== 200) throw new Error('❌ Error al obtener usuarios');
+    // Crear un usuario manualmente
+    await Usuario.create({
+      nombre: 'TestUser',
+      email: 'test@correo.com',
+      password: '123456',
+      direccion: 'Apto 101',
+      rol: 'Residente',
+      conjunto: (await Conjunto.findOne({ nombre: 'Los Tulipanes' }))._id
+    });
 
-    if (!res.text.includes('TestUser')) {
-      throw new Error('❌ El nombre del usuario no aparece en la vista');
-    }
+    const res = await request(app).get('/usuarios');
+    expect(res.status).to.equal(200);
+    expect(res.text.includes('TestUser')).to.be.true;
   });
 });
-

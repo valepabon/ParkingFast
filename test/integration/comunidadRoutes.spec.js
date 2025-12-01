@@ -6,7 +6,7 @@ import session from "express-session";
 import request from "supertest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import { expect } from 'chai';
+import { expect } from "chai";
 
 import comunidadRoutes from "../../routes/comunidadRoutes.js";
 import { connectDatabase } from "../../config/database.js";
@@ -25,27 +25,17 @@ describe("comunidadRoutes (integración)", function () {
   let usuario;
 
   before(async () => {
+    // Iniciar servidor en memoria
     mongod = await MongoMemoryServer.create();
     const uri = new URL(mongod.getUri());
 
     process.env.MONGO_HOST = uri.hostname;
     process.env.MONGO_PORT = uri.port;
-    process.env.MONGO_DB =
-      (uri.pathname && uri.pathname.slice(1)) || "testdb";
+    process.env.MONGO_DB = (uri.pathname && uri.pathname.slice(1)) || "testdb";
 
     await connectDatabase();
 
-    // Crear usuario
-    usuario = await Usuario.create({
-      nombre: "Usuario1",
-      email: `test1${Date.now()}@correo.com`,
-      password: "123456",
-      direccion: "Apto 123",
-      rol: "Residente",
-    });
-
-      
-
+    // Configurar Express
     app = express();
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
@@ -58,7 +48,20 @@ describe("comunidadRoutes (integración)", function () {
       })
     );
 
-    // Middleware para simular login
+    // EJS y rutas
+    app.set("view engine", "ejs");
+    app.set("views", path.join(PROJECT_ROOT, "views"));
+
+    // Crear usuario de prueba
+    usuario = await Usuario.create({
+      nombre: "UsuarioTest",
+      email: `test${Date.now()}@correo.com`,
+      password: "123456",
+      direccion: "Apto 101",
+      rol: "Residente",
+    });
+
+    // Middleware de sesión simulada
     app.use((req, res, next) => {
       req.session.usuario = {
         id: usuario._id.toString(),
@@ -68,9 +71,17 @@ describe("comunidadRoutes (integración)", function () {
       next();
     });
 
-    app.set("view engine", "ejs");
-    app.set("views", path.join(PROJECT_ROOT, "views"));
     app.use("/comunidad", comunidadRoutes);
+  });
+
+  // Limpiar colecciones antes de cada test
+  beforeEach(async () => {
+    await Comunidad.deleteMany({});
+  });
+
+  // Limpiar colecciones después de cada test
+  afterEach(async () => {
+    await Comunidad.deleteMany({});
   });
 
   after(async () => {
@@ -79,36 +90,56 @@ describe("comunidadRoutes (integración)", function () {
   });
 
   it("POST /comunidad/agregar → debe crear una publicación", async () => {
-    const res = await request(app)
-      .post("/comunidad/agregar")
-      .send({
-        tipoParqueadero: "Cubierto",
-        tipoVehiculo: "Carro",
-        precio: 5000,
-        fecha: "2025-12-01",
-        telefono: "3210009999",
-        ubicacion: "Los Tulipanes",
-        descripcion: "Disponible",
-      });
+    const res = await request(app).post("/comunidad/agregar").send({
+      tipoParqueadero: "cubierto",
+      tipoVehiculo: "carro",
+      precio: 5000,
+      fecha: "2025-12-01",
+      telefono: "3210009999",
+      ubicacion: "Los Tulipanes",
+      descripcion: "Disponible",
+    });
 
-    expect(res.status).to.equal(302);
+    expect(res.status).to.equal(200);
+    expect(res.body.exito).to.be.true;
 
     const publicaciones = await Comunidad.find();
-    expect(publicaciones.length).to.equal(1);
+    expect(publicaciones).to.have.lengthOf(1);
+    expect(publicaciones[0].descripcion).to.equal("Disponible");
   });
 
   it("GET /comunidad/mis-publicaciones → debe mostrar publicaciones del usuario", async () => {
+    await Comunidad.create({
+      tipoParqueadero: "cubierto",
+      tipoVehiculo: "carro",
+      precio: 5000,
+      fechaDisponible: "2025-12-01",
+      propietario: usuario._id,
+      telefono: "3210009999",
+      conjunto: "Los Tulipanes",
+      descripcion: "Disponible",
+    });
+
     const res = await request(app).get("/comunidad/mis-publicaciones");
     expect(res.status).to.equal(200);
-    expect(res.text.includes("Disponible")).to.equal(true);
+    expect(res.text.includes("Disponible")).to.be.true;
   });
 
   it("DELETE /comunidad/eliminar/:id → debe eliminar publicación", async () => {
-    const pub = await Comunidad.findOne();
+    const pub = await Comunidad.create({
+      tipoParqueadero: "cubierto",
+      tipoVehiculo: "carro",
+      precio: 5000,
+      fechaDisponible: "2025-12-01",
+      propietario: usuario._id,
+      telefono: "3210009999",
+      conjunto: "Los Tulipanes",
+      descripcion: "Disponible",
+    });
 
     const res = await request(app).delete(`/comunidad/eliminar/${pub._id}`);
-
     expect(res.status).to.equal(200);
+    expect(res.body.exito).to.be.true;
 
     const total = await Comunidad.countDocuments();
     expect(total).to.equal(0);

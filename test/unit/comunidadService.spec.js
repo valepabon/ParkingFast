@@ -35,7 +35,7 @@ describe('comunidadService (unit)', () => {
     sinon.stub(Comunidad.prototype, 'save').callsFake(saveStub);
 
     await comunidadService.crearPublicacion({
-      tipoVehiculo: 'Carro',
+      tipoVehiculo: 'carro',
       precio: 5000
     });
 
@@ -61,8 +61,8 @@ describe('comunidadService (unit)', () => {
     const stub = sinon.stub(Comunidad, 'findByIdAndUpdate').resolves({ _id: 'p1', precio: 3000 });
 
     const data = {
-      tipoParqueadero: 'Cubierto',
-      tipoVehiculo: 'Moto',
+      tipoParqueadero: 'cubierto',
+      tipoVehiculo: 'moto',
       precio: 3000,
       fecha: '2025-10-10',
       telefono: '123',
@@ -75,8 +75,8 @@ describe('comunidadService (unit)', () => {
     expect(stub.calledWith(
       'p1',
       {
-        tipoParqueadero: 'Cubierto',
-        tipoVehiculo: 'Moto',
+        tipoParqueadero: 'cubierto',
+        tipoVehiculo: 'moto',
         precio: 3000,
         fechaDisponible: '2025-10-10',
         telefono: '123',

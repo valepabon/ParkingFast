@@ -20,7 +20,7 @@ describe('parqueaderoService (unit)', () => {
     const saveStub = sinon.stub().resolves({ _id: 'p1' });
     sinon.stub(Parqueadero.prototype, 'save').callsFake(saveStub);
 
-    const data = { codigo: 'P1', tipo: 'Residente' };
+    const data = { codigo: 'P1', tipo: 'residente' };
     const result = await parqueaderoService.crearParqueadero(data);
 
     expect(saveStub.calledOnce).to.be.true;
@@ -43,12 +43,12 @@ describe('parqueaderoService (unit)', () => {
   });
 
   it('actualizarParqueadero debe ejecutar findByIdAndUpdate con los datos', async () => {
-    const stub = sinon.stub(Parqueadero, 'findByIdAndUpdate').resolves({ codigo: 'P1', tipo: 'Visitante' });
+    const stub = sinon.stub(Parqueadero, 'findByIdAndUpdate').resolves({ codigo: 'P1', tipo: 'visitante' });
 
-    const datos = { tipo: 'Visitante' };
+    const datos = { tipo: 'visitante' };
     const result = await parqueaderoService.actualizarParqueadero('p1', datos);
 
     expect(stub.calledWith('p1', datos, { new: true })).to.be.true;
-    expect(result.tipo).to.equal('Visitante');
+    expect(result.tipo).to.equal('visitante');
   });
 });
