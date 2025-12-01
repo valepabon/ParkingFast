@@ -106,7 +106,7 @@ Modelo (Mongoose) → Almacena/consulta datos en MongoDB
 Vista (EJS) ← Renderiza la respuesta
    ↑
 Usuario ← Recibe la respuesta
-
+```
 
 ---
 
