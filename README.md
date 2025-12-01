@@ -169,7 +169,7 @@ npm run test:integration
 
 Las pruebas de integración usan una base de datos temporal en memoria (mongodb-memory-server).
 No afectan tu base de datos real.
-
+```
 ---
 ## 📌 Mensajes Comunes de Commit
 
